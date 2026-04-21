@@ -6,20 +6,19 @@ window.addEventListener('keydown', (e) => {
     fillPage();
     opacity0('intro-title');
     opacity0('intro-instruction');
-    setInterval(() => {
+    setTimeout(() => {
         if(page == 1){
             page = nextPage(page);
         }
-    }, 800);
-    setInterval(() => {
+    }, 1000);
+    setTimeout(() => {
         opacity0('introduction-title');
-    }, 1600);
-    setInterval(() => {
+    }, 2000);
+    setTimeout(() => {
         if(page == 2){
             opacity100('introduction');
-            displayflex('introduction')
         }
-    }, 2800);
+    }, 3000);
 });
 
 function curtainsAnimation(direction){
@@ -37,8 +36,31 @@ function curtainsAnimation(direction){
     }
 }
 
-let curtainsContainer = document.querySelector('.curtains-containter');
-curtainsContainer.addEventListener('mouseover', () => curtainsAnimation('out'));
-curtainsContainer.addEventListener('mouseout', () => curtainsAnimation('in'));
+let curtainsContainer = document.querySelector('.curtains-container');
+let click = 0;
+curtainsContainer.addEventListener('click', () => {
+    if(click == 0){
+        curtainsAnimation('out');
+        setTimeout(() => {
+            displaynone('curtains-container');
+        }, 800);
+        setTimeout(() => {
+            opacity100('btn-next');
+        }, 2000);
+    }
+    click++;
+});
 
+let btn = document.getElementById('btn-next');
+btn.addEventListener('click', () => {
+    if(click == 1){
+        displayflex('curtains-container');
+        setTimeout(() => {
+            curtainsAnimation('in');
+        }, 100);
+        setTimeout(() => {
+            page = nextPage(page);
+        }, 1000);
+    }
+});
 

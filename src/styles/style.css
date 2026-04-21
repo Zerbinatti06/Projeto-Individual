@@ -5,11 +5,17 @@
     margin: 0;
 }
 
+:root{
+    --primary: #895129;
+    --primary-1000: #2b251e;
+    --accent: #ffc067;
+    --accent-100: #fff2e1;
+}
 
 
 @font-face{
     font-family: 'Klemer';
-    src: url('/src/fonts/Klemer\ Display\ DEMO.ttf') format('truetype');
+    src: url('/src/fonts/KlemerDisplayDEMO.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -31,13 +37,22 @@ main{
     width: 500vw;
     height: 100vh;
     display: flex;
-    
+
     transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-/* main:hover{
-    transform: translateX(-100vw);
-} */
+.side{
+    position: absolute;
+    width: 10%;
+    height: 100%;
+
+    left: 0;
+
+    background-color: red;
+    border: solid 1px black;
+
+    display: none;
+}
 
 section{
     width: 100vw;
@@ -54,7 +69,7 @@ section{
 .title{
     position: absolute;
     font-size: 10rem;
-    color: #ffc067;
+    color: var(--accent);
     font-family: 'Klemer', sans-serif;
 
     transition: all 0.8s ease;
@@ -66,7 +81,7 @@ section{
 .subtitle{
     position: absolute;
     font-size: 8rem;
-    color: #ffc067;
+    color: var(--accent);
     font-family: 'Playfair', sans-serif;
 
     transition: all 0.8s ease;
@@ -74,15 +89,14 @@ section{
     letter-spacing: 5px;
 }
 
-
 /* Intro */
 
-.intro {
+.intro { 
     position: relative;
     width: 100vw;
     height: 100vh;
 
-    background-color: #000;
+    background-color: var(--primary-1000);
 
     display: flex;
     justify-content: center;
@@ -104,7 +118,7 @@ section{
     bottom: 20px;
 
     font-size: 1rem;
-    color: #ffc067;
+    color: var(--accent);
     font-family: 'arial', sans-serif;
 
     transition: all 0.3s ease;
@@ -121,7 +135,7 @@ section{
 
     border-radius: 50%;
 
-    background-color: #895129;
+    background-color: var(--primary);
     z-index: 1;
 }
 
@@ -132,7 +146,7 @@ section{
     height: 100vh;
     width: 100vw;
 
-    background-color: #895129;
+    background-color: var(--primary);
 
     display: flex;
     align-items: center;
@@ -143,17 +157,17 @@ section{
     width: 100vw;
     height: 100vh;
 
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
 
     opacity: 0;
 
-    background-color: white;
+    background-color: var(--accent-100);
 
     position: relative;
 
-    transition: all 2s ease;
+    transition: all 0.8s ease;
 }
 
 .introduction .content{
@@ -173,7 +187,7 @@ section{
     height: 10%;
 
     font-size: 3rem;
-    color: #ffc067;
+    color: var(--accent);
     font-family: 'Playfair', sans-serif;
 
     display: flex;
@@ -185,17 +199,19 @@ section{
     font-size: 2rem;
     width: 50%;
 
-    color: #2b251e;
+    color: var(--primary-1000);
 
     text-align: center;
     margin-top: 20px;
 }
 
-.curtains-containter{
+.curtains-container{
     width: 100%;
     height: 100%;
 
     display: flex;
+
+    cursor: pointer;
 
     position: absolute;
 
@@ -212,5 +228,75 @@ section{
     background-size: cover;
 
     transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.btn-next{
+    width: 10vw;
+    height: 10vh;
+
+    cursor: pointer;
+
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+/* Section 2 */
+
+.section2{
+    width: 100vw;
+    height: 100vh;
+
+    background-color: var(--primary-1000);
+
+    display: flex;
+
+}
+
+.section2 .content{
+    width: 45%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 5%;
+
+    z-index: 1;
+}
+
+.section2 .content-title{
+    justify-content: flex-start;
+}
+
+.section2 .subtitle{
+    font-size: 4rem;
+}
+
+.section2 .text-content{
+    color: var(--accent-100);
+    width: 80%;
+}
+
+.side-img-container{
+    width: 50%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+}
+
+.side-section2-img{
+    width: fit-content;
+    height: fit-content;
+
+    border-radius: 10px;
+
+    right: 0;
+
+    z-index: 0;
 }
 
