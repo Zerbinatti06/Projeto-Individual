@@ -7,7 +7,7 @@
 
 main{
     width: 100vw;
-    background-image: url("../img/fundoLogin.png");
+    background-image: url("../assets/img/fundoLogin.png");
     background-size: cover;
 
     justify-content: flex-end;

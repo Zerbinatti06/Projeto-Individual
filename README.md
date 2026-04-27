@@ -1,42 +1,52 @@
-# Tamarineira
+# Tamarineira 🌳🥁
 
 ![Status do Projeto](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow)
-![JS](https://img.shields.io/badge/JavaScript-Vanilla-black)
+![Node.js](https://img.shields.io/badge/Backend-Node.js-green)
+![MySQL](https://img.shields.io/badge/Database-MySQL-blue)
+![Architecture](https://img.shields.io/badge/Pattern-MVC-orange)
 
-Uma experiência interativa e imersiva sobre a evolução rítmica e estética do samba moderno brasileiro, partindo da revolução instrumental do Fundo de Quintal até o fenômeno de massa do Exaltasamba.
+> "Tudo nasceu sob a sombra da tamarineira..."
 
-## Sobre o Projeto
-Este projeto nasceu da necessidade de documentar visualmente a transição do pagode de mesa para o pagode romântico e pop. O design utiliza uma paleta de **Amarelo Pastel** sobre **Preto**, evocando a elegância e a alegria do gênero, com uma navegação horizontal que simula uma linha do tempo contínua.
+**Tamarineira** é uma aplicação Full-Stack imersiva que documenta a evolução rítmica, instrumental e estética do samba moderno brasileiro. Do pagode de mesa do Cacique de Ramos à explosão pop dos anos 2000, o projeto une narrativa histórica com tecnologia de ponta.
 
-### A Jornada:
-1. **O Berço (Anos 70):** O Fundo de Quintal e a introdução do tantã, repique de mão e banjo.
-2. **A Transição (Anos 80):** A chegada do samba às rádios com Bala, Bombom e Chocolate.
-3. **A Explosão Pop (Anos 90):** A era de ouro com SPC, Molejo e a sofisticação de Soweto e Art Popular.
-4. **O Legado (Anos 2000):** O ápice do gênero com o Exaltasamba e a consolidação do samba como instituição nacional.
+## 📖 Sobre o Projeto
+O nome homenageia a árvore sagrada do bloco Cacique de Ramos, berço do grupo Fundo de Quintal. O projeto utiliza uma interface de navegação horizontal (Timeline) e transições cinematográficas para contar como o samba se transformou ao longo das décadas.
 
-## Tecnologias e Conceitos Aplicados
+### A Jornada Histórica:
+1.  **Anos 70 (O Berço):** A revolução do Fundo de Quintal e os novos instrumentos (tantã, repique de mão e banjo).
+2.  **Anos 80 (A Transição):** A chegada do samba às rádios e a profissionalização do pagode.
+3.  **Anos 90 (A Explosão Pop):** A era de ouro com grupos como Molejo, SPC e Art Popular.
+4.  **Anos 2000 (O Legado):** O fenômeno de massa e o ápice do gênero com o Exaltasamba.
 
-### Frontend
-- **Vanilla JavaScript:** Toda a lógica de transição de telas, manipulação de estados e animações foi feita sem o uso de frameworks (como React ou Vue).
-- **CSS Transitions & Transforms:** Uso intensivo de `translateX` para navegação horizontal e `scale` para efeitos de expansão imersiva.
-- **SVG Dinâmico:** Manipulação de vetores para garantir que a identidade visual permaneça nítida em qualquer resolução.
-- **Chart.js:** Implementação de gráficos interativos na sessão final para exibir as estatísticas de conhecimento dos usuários (Quiz).
+## 🛠️ Stack Tecnológica
 
-### Backend & Dados
-- **Consumo de API:** Integração com sistema de login e cadastro de usuários.
-- **Persistência:** Armazenamento e recuperação de dados de desempenho dos usuários no Quiz.
+### Frontend (Interface Imersiva)
+- **Vanilla JavaScript:** Lógica de estados, controle de timeline e animações complexas.
+- **CSS Avançado:** Uso de Transições dinâmicas e `Transform: Scale` para efeitos de profundidade.
 
-## Funcionalidades Principais
-- **Intro "Any Key":** Uma transição cinematográfica que utiliza uma div expansora para revelar o conteúdo principal.
-- **Navegação Horizontal:** Scroll lateral controlado via teclado e botões, garantindo que o usuário siga a ordem cronológica.
-- **Quiz de Conhecimento:** Um desafio final que testa o que o usuário aprendeu, gerando um gráfico de radar/pizza com os resultados.
-- **Design Responsivo:** Adaptado para diferentes resoluções, mantendo a proporção áurea do conteúdo centralizado.
+### Backend (Infraestrutura Web-Data-Viz)
+- **Node.js & Express:** Servidor robusto para gerenciamento de rotas e requisições.
+- **Padrão MVC (Model-View-Controller):** Organização de código profissional para separação de responsabilidades.
+- **MySQL:** Banco de dados relacional para persistência de usuários e métricas do Quiz.
 
-## 📁 Estrutura de Arquivos
+## 🚀 Funcionalidades Principais
+- **Sistema de Usuários:** Cadastro e Login integrados ao banco de dados MySQL.
+- **Intro Interativa:** Transição "Any Key" com expansão de elementos e sistema de cortinas via JavaScript.
+- **Linha do Tempo Horizontal:** Navegação fluida entre décadas através de eventos de teclado e clique.
+- **Quiz Dinâmico:** Avaliação de conhecimento com inserção de pontuação no banco e exibição de performance via gráficos.
+- **Microinterações:** Efeitos de hover inteligentes que revelam detalhes sobre os instrumentos musicais.
+
+## 📁 Estrutura de Pastas (MVC)
 ```text
-├── /src                 # Pasta Source (guarda todas os arquivos do site)
-    ├── assets/          # Ícones e Fontes customizadas
-    ├── scripts/         # Lógica core, módulos de API e gráficos
-    ├── styles/          # Estilização modular (intro, décadas, quiz)
-    ├──quiz/             # Páginas do quiz
-    └── index.html       # Página principal
+├── public/              # Todo o conteúdo Frontend (HTML, CSS, JS, Assets)
+│   ├── assets/          # Ícones, fontes e imagens
+│   ├── auth/            # Páginas de login/cadastro
+│   ├── scripts/         # Funções para animações e etc.
+│   ├── styles/          # Estilização modularizada
+│   └── index.html       # Single Page Application
+├── src/                 # Backend (Lógica de Negócio)
+│   ├── controllers/     # Processamento de dados e respostas HTTP
+│   ├── database/        # Scripts SQL de criação do banco e configurações de conexão
+│   ├── models/          # Comunicação direta com o Banco de Dados (Queries)
+│   └── routes/          # Definição dos endpoints da API
+├── app.js               # Configuração do servidor Express

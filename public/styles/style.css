@@ -15,14 +15,14 @@
 
 @font-face{
     font-family: 'Klemer';
-    src: url('../fonts/KlemerDisplayDEMO.ttf') format('truetype');
+    src: url('../assets/fonts/KlemerDisplayDEMO.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face{
     font-family: 'Playfair';
-    src: url('../fonts/PlayfairDisplay-Regular.ttf') format('truetype');
+    src: url('../assets/fonts/PlayfairDisplay-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -224,7 +224,7 @@ section{
     width: 50%;
     height: 100%;
 
-    background-image: url('../img/curtain.png');
+    background-image: url('../assets/img/curtain.png');
     background-size: cover;
 
     transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
