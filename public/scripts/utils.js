@@ -1,7 +1,6 @@
+const main = document.getElementById('main');
 
 function nextPage(page){
-    let main = document.getElementById('main');
-
     main.style.transform = `translateX(-${page * 100}vw)`;
     page++;
 
@@ -33,4 +32,18 @@ function displayflex(id){
     element.style.display = 'flex';
 }
 
-export { nextPage, fillPage, opacity0, opacity100, displaynone, displayflex};
+function wrongInput(id){
+    let element = document.getElementById(id);
+
+    element.style.border = '2px solid red';
+    element.style.color = 'red';
+}
+
+function rightInput(id){
+    let element = document.getElementById(id);
+
+    element.style.border = 'none';
+    element.style.color = 'black';
+}
+
+export { nextPage, fillPage, opacity0, opacity100, displaynone, displayflex, wrongInput, rightInput};

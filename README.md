@@ -1,4 +1,4 @@
-# Samba Moderno: Do Cacique ao Estádio 
+# Tamarineira
 
 ![Status do Projeto](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow)
 ![JS](https://img.shields.io/badge/JavaScript-Vanilla-black)

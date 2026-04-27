@@ -1,0 +1,131 @@
+:root{
+    --primary: #895129;
+    --primary-1000: #2b251e;
+    --accent: #ffc067;
+    --accent-100: #fff2e1;
+}
+
+main{
+    width: 100vw;
+    background-image: url("../img/fundoLogin.png");
+    background-size: cover;
+
+    justify-content: flex-end;
+    position: relative;
+}
+
+section{
+    position: absolute;
+    justify-self: flex-end;
+    width: 50vw;
+    background-color: var(--primary-1000);
+
+    transition: all 1000ms ease;
+}
+
+.login-container{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-top{
+    width: 100%;
+    height: 10%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding-top: 10%;
+}
+
+.login-top h1{
+    font-size: 10vh;
+    color: var(--accent);
+}
+
+.login-mid{
+    width: 100%;
+    height: 80%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10vh;
+}
+
+.login-mid input{
+    width: 60%;
+    height: 10vh;
+
+    font-size: 3vh;
+    text-align: center;
+
+    border: none;
+    border-radius: 50px;
+
+    transition: 200ms all ease;    
+}
+
+.login-bottom{
+    width: 100%;
+    height: 10%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 2vh;
+
+    padding-bottom: 10%;
+}
+
+.login-bottom p{
+    color: white;
+
+    padding-right: 3%;
+    font-size: 1.5vh;
+}
+
+.login-bottom button{
+    width: 30%;
+    height: 8vh;
+
+    background-color: var(--primary);
+    color: var(--accent);
+
+    font-size: 4vh;
+
+    cursor: pointer;
+
+    border-radius: 10px;
+    border: none;
+
+    transition: all 200ms ease;
+}
+
+.login-bottom button:hover{
+    color: color-mix(in srgb, var(--accent), black 20%);
+    background-color: color-mix(in srgb, var(--primary), black 20%);
+}
+
+.login-bottom a{
+    cursor: pointer;
+
+    color: var(--accent);
+    text-decoration: underline;
+
+    transition: all 200ms ease;
+}
+
+.login-bottom a:hover{
+    color: color-mix(in srgb, var(--accent), black 50%);
+}

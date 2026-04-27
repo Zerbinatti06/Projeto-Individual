@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Samba</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/styleAuth.css">
+</head>
+<body>
+    <main>
+        <section id="login" style="opacity: 100;">
+            <div class="login-container">
+                <div class="login-top">
+                    <h1>Login</h1>
+                </div>
+                <div class="login-mid">
+                    <input type="text" placeholder="Email" id="InEmail">
+                    <input type="text" placeholder="Senha" id="InPassword">
+                </div>
+                <div class="login-bottom">
+                    <button onclick="loginRegister('login')">Enviar</button>
+                    <p>Ainda não possui conta? <a id="toRegister">Cadastre-se</a></p>
+                </div>
+            </div>
+        </section>
+        <section id="register" style="opacity: 0; right: 50%;">
+            <div class="login-container">
+                <div class="login-top">
+                    <h1>Cadastro</h1>
+                </div>
+                <div class="login-mid">
+                    <input type="text" placeholder="Nome" id="InRegisterUsername">
+                    <input type="text" placeholder="Email" id="InRegisterEmail">
+                    <input type="text" placeholder="Senha" id="InRegisterPassword">
+                </div>
+                <div class="login-bottom">
+                    <button onclick="loginRegister('register')">Enviar</button>
+                    <p>Já possui conta? <a id="toLogin">Logar-se</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+<script src="../scripts/login.js" type="module"></script>
+<script>
+    function loginRegister(type){
+        let loginEmail = InEmail.value
+        let loginPass = InPassword.value
+        let registerUsername = InRegisterUsername.value
+        let registerEmail = InRegisterEmail.value
+        let registerPass = InRegisterPassword.value 
+
+
+        if(type == 'login'){
+            fetch('http://localhost:8080/usuarios/autenticar', {
+                method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        emailServer: loginEmail,
+                        senhaServer: loginPass
+                    })
+            }).then((res) => {
+                if(res.ok){
+                    console.log(res)
+            
+                    res.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                        sessionStorage.user_email = json.email;
+                        sessionStorage.user_name = json.nome;
+                        sessionStorage.user_id = json.id;
+                    })
+            
+                    window.location = "/index.html"
+                }else{
+                    console.log("Houve um erro ao tentar realizar o login!");
+            
+                    res.text().then(texto => {
+                        console.error(texto);
+                    });
+                }
+            }).catch((err) => {
+                console.log(err);
+            })
+
+        }
+
+        if(type == 'register'){
+            fetch('http://localhost:8080/usuarios/cadastrar', {
+                method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        nomeServer: registerUsername,
+                        emailServer: registerEmail,
+                        senhaServer: registerPass
+                    })
+            }).then((res) => {
+                if(res.ok){
+                    console.log(res)
+
+                    res.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                    })
+
+                    setTimeout(() => window.location = "/index.html", 10000)
+                }else{
+                    console.log("Houve um erro ao tentar realizar o registro!");
+            
+                    res.text().then(texto => {
+                        console.error(texto);
+                    });
+                }
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
+}
+</script>
+</html>
