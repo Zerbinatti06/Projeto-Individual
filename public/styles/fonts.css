@@ -1,0 +1,20 @@
+@font-face{
+    font-family: 'Playfair';
+    src: url('../assets/fonts/PlayfairDisplay-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}   
+
+@font-face{
+    font-family: 'Cormorant';
+    src: url('../assets/fonts/Cormorant.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}  
+
+@font-face{
+    font-family: 'Cinzel';
+    src: url('../assets/fonts/Cinzel.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}  

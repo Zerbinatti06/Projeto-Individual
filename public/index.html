@@ -1,73 +1,154 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/fonts.css">
     <link rel="stylesheet" href="./styles/style.css">
     <title>Tamarineira</title>
 </head>
-
 <body>
-    <main id="main">
-        <div class="side"></div>
-        <section>
-            <div class="intro">
-                <img src="./assets/img/fundo_title.png" alt="SVG forma circular marrom" class="svg">
-                <h1 class="title" id="intro-title">SAMBA</h1>
-                <p class="intro-instruction" id="intro-instruction">Pressione qualquer tecla</p>
-                <div class="animation" id="animation"></div>
+   <main>
+        <section id="sec1">
+            <div class="content">
+                <div class="command-container">
+                    <p>PRESSIONE QUALQUER TECLA</p>
+                    <div class="img"><img src="./assets/img/keyboard.svg" style="stroke: white;"></div>
+                </div>
+                <div class="title-container">
+                    <h1 class="title">O SAMBA</h1>
+                    <h2 class="subtitle">É A NOSSA HISTÓRIA</h2>
+                </div>
+                <div class="subtitle-container">
+                    <p>Uma jornada interativa pela memória do samba moderno</p>
+                    <p>Explore décadas, descubra histórias e faça parte dessa construção</p>
+                </div>
             </div>
         </section>
-        <section>
-            <div class="introduction-title" id="section1">
-                <h1 class="subtitle" id="introduction-title">INTRODUÇÃO</h1>
-                <div class="introduction" id="introduction">
-                    <div class="curtains-container" id="curtains-container">
-                        <div class="curtain-left"></div>
-                        <div class="curtain-right"></div>
+        <section class="none" id="sec2">
+                <div class="top">
+                    <div class="title-top">
+                        <p class="title-top-1">LINHA DO TEMPO</p>
+                        <p>NAVEGUE PELA HISTÓRIA</p>
                     </div>
+                    <div class="authBtn-container">
+                        <button class="authBtn" id="register" onclick="window.location.href = './auth/register.html'">Cadastro</button>
+                        <button class="authBtn" id="login" onclick="window.location.href = './auth/login.html'">Login</button>
+                    </div>
+                </div>
 
-                    <div class="content">
-                        <div class="content-title">
-                            <h1>Era Cacique de Ramos</h1>
+                <div class="cards">
+                    <div class="card" id="card1970">
+                        <h1>1970</h1>
+                        <p class="p">O NASCIMENTO DE UM MOVIMENTO</p>
+                        <div class="btn-card" onclick="openModal(0)">
+                            <p>EXPLORAR DÉCADA</p>
+                            <img src="./assets/img/arrow-right.svg">
                         </div>
-                        <div class="text-content">
-                            <p>O Cacique de Ramos é um bloco carnavalesco fundado em 1961, no bairro do Caju, Rio de
-                                Janeiro.
-                                Ele é conhecido por sua contribuição significativa para a cultura do samba e por ser um
-                                dos
-                                blocos mais tradicionais do Carnaval carioca.</p>
+                    </div>
+                    <div class="card" id="card1980">
+                        <h1>1980</h1>
+                        <p class="p">A CONSOLIDAÇÃO DAS ESCOLAS</p>
+                        <div class="btn-card" onclick="openModal(1)">
+                            <p>EXPLORAR DÉCADA</p>
+                            <img src="./assets/img/arrow-right.svg">
                         </div>
-                        <img src="./assets/img/arrow.svg" alt="Seta indicadora para próxima seção" class="btn-next"
-                            id="btn-next">
+                    </div>
+                    <div class="card" id="card1990">
+                        <h1>1990</h1>
+                        <p class="p">A ERA DOS FESTIVAIS</p>
+                        <div class="btn-card" onclick="openModal(2)">
+                            <p>EXPLORAR DÉCADA</p>
+                            <img src="./assets/img/arrow-right.svg">
+                        </div>
+                    </div>
+                    <div class="card" id="card2000">
+                        <h1>2000</h1>
+                        <p class="p">O SAMBA CHEGA AO NOVO MILÊNIO</p>
+                        <div class="btn-card" onclick="openModal(3)">
+                            <p>EXPLORAR DÉCADA</p>
+                            <img src="./assets/img/arrow-right.svg">
+                        </div>
+                    </div>
+                    <div class="card" id="card2010">
+                        <h1>2010</h1>
+                        <p class="p">NOVAS VOZES, NOVOS CAMINHOS</p>
+                        <div class="btn-card" onclick="openModal(4)">
+                            <p>EXPLORAR DÉCADA</p>
+                            <img src="./assets/img/arrow-right.svg">
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        <section>
-            <div class="section2">
-                <div class="content">
-                    <div class="content-title">
-                        <h1 class="subtitle">Fundo de Quintal</h1>
+
+                <div class="modal-container none" id="modalContainer" onclick="closeModal()">
+                    <div class="modal none" id="modal1970">
+                        <div class="teste">
+                            <h1>1970</h1>
+                            <h2>O NASCIMENTO DO SAMBA MODERNO</h2>
+                            <p>A década de 1970 marca o ponto de partida do samba moderno. Em meio às rodas de samba do bloco Cacique de Ramos, no Rio de Janeiro, músicos como Bira Presidente, Sereno, Ubirany e Almir Guineto começaram a reinventar a linguagem do gênero.</p>
+                            <p>Instrumentos como o tantã, o repique de mão e o banjo passaram a integrar as rodas, criando uma sonoridade mais urbana, mais percussiva e mais próxima das comunidades suburbanas.Mais do que música, o samba dessa época se consolidou como espaço de encontro, resistência cultural e identidade popular.</p>
+                        </div>
                     </div>
-
-                    <p class="text-content">O Fundo de Quintal não é apenas um grupo; é o marco zero do samba moderno.
-                        Nascido sob a sombra das tamarineiras do bloco carnavalesco Cacique de Ramos, no Rio de Janeiro
-                        dos anos 70, o grupo transformou o que era uma reunião informal entre amigos na maior revolução
-                        estética do gênero. Ali, o samba de terreiro ganhou uma nova batida, mais urbana, mais próxima
-                        do povo e imensamente sofisticada.</p>
+                    <div class="modal none" id="modal1980">
+                        <div class="modal-content">
+                            <div class="modal-content-left">
+                                <div class="modal-content-left-top">
+                                    <h1>1980</h1>
+                                    <h2>A CONSOLIDAÇÃO DAS ESCOLAS</h2>
+                                </div>
+                                <p>Nos anos 1980, o samba alcança uma nova dimensão popular. O sucesso de grupos como Fundo de Quintal, Zeca Pagodinho e Jorge Aragão ajuda a consolidar uma identidade moderna para o gênero.</p>
+                                <p>As escolas de samba expandem sua presença cultural, os desfiles se tornam espetáculos televisivos e o samba passa a ocupar um espaço ainda maior na indústria musical brasileira. É também nesse período que o pagode se fortalece como linguagem urbana das periferias e subúrbios cariocas.</p>
+                            </div>
+                            <div class="modal-content-right" id="right2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal none" id="modal1990">
+                        <div class="modal-content">
+                            <div class="modal-content-left">
+                                <div class="modal-content-left-top">
+                                    <h1>1990</h1>
+                                    <h2>A ERA DOS FESTIVAIS</h2>
+                                </div>
+                                <p>A década de 1990 marcou a explosão comercial do samba e do pagode. Grupos como Raça Negra, Só Pra Contrariar, Exaltasamba e Art Popular levaram o gênero às rádios, televisões e grandes eventos nacionais.</p>
+                                <p>O samba passou a dialogar diretamente com a cultura pop brasileira, aproximando novas gerações e expandindo sua presença para além do Rio de Janeiro.Enquanto isso, o samba tradicional seguia vivo nas rodas suburbanas e nos encontros comunitários que preservavam suas raízes.</p> 
+                            </div>
+                            <div class="modal-content-right" id="right3">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal none" id="modal2000">
+                        <div class="modal-content">
+                            <div class="modal-content-left">
+                                <div class="modal-content-left-top">
+                                    <h1>2000</h1>
+                                    <h2>O SAMBA CHEGA AO NOVO MILÊNIO</h2>
+                                </div>
+                                <p>Nos anos 2000, o samba passou por uma fase de renovação estética e cultural. Novos artistas surgiram enquanto nomes históricos permaneciam influentes no cenário nacional.</p>
+                                <p>As rodas de samba voltaram a ganhar força como espaços de encontro, celebração e preservação da memória musical brasileira.Ao mesmo tempo, o gênero começou a dialogar com a internet, novas mídias e públicos cada vez mais diversos.</p>
+                            </div>
+                            <div class="modal-content-right" id="right4">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal none" id="modal2010">
+                        <div class="modal-content">
+                            <div class="modal-content-left">
+                                <div class="modal-content-left-top">
+                                    <h1>2010</h1>
+                                    <h2>NOVAS VOZES, NOVOS CAMINHOS</h2>
+                                </div>
+                                <p>Nos anos 2000, o samba passou por uma fase de renovação estética e cultural. Novos artistas surgiram enquanto nomes históricos permaneciam influentes no cenário nacional.</p>
+                                <p>As rodas de samba voltaram a ganhar força como espaços de encontro, celebração e preservação da memória musical brasileira.Ao mesmo tempo, o gênero começou a dialogar com a internet, novas mídias e públicos cada vez mais diversos.</p>
+                            </div>
+                            <div class="modal-content-right" id="right5">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="side-img-container">
-                    <img src="./assets/img/fundo_de_quintal.png" alt="Imagem roda de samba fundo de quintal" class="side-section2-img">
-                </div>
-            </div>
         </section>
-        <section>
-
-        </section>
+        <div class="curtain"></div>
     </main>
 </body>
-<script src="./scripts/animations.js" type="module"></script>
+<script src="./scripts/animation.js"></script>
 </html>

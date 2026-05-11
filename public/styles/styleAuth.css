@@ -1,131 +1,199 @@
-:root{
-    --primary: #895129;
-    --primary-1000: #2b251e;
-    --accent: #ffc067;
-    --accent-100: #fff2e1;
-}
+:root {
 
-main{
-    width: 100vw;
-    background-image: url("../assets/img/fundoLogin.png");
-    background-size: cover;
+    /* =========================
+    CORES BASE (BACKGROUND)
+    ========================== */
+    --color-bg-primary: #1E1A17;
+    --color-bg-secondary: #2A241F;
+    --color-bg-elevated: #3A322B;
+    --color-bg-dark: #0F0E0D;
 
-    justify-content: flex-end;
-    position: relative;
+    /* =========================
+    CORES PRINCIPAIS (BRAND)
+    ========================== */
+    --color-primary: #E6B45E;
+    --color-primary-light: #F2C879;
+    --color-primary-soft: #F5E6C8;
+
+    /* =========================
+     TEXTO
+    ========================== */
+    --color-text-primary: #F5F5F5;
+    --color-text-secondary: #CFC7B8;
+    --color-text-muted: #8A8175;
+
+    /* =========================
+     NEUTROS 
+    ========================== */
+    --color-border: #4A4138;
+    --color-black-soft: #0F0E0D;
 }
 
 section{
-    position: absolute;
-    justify-self: flex-end;
-    width: 50vw;
-    background-color: var(--primary-1000);
+    background:
+    linear-gradient(
+        to bottom,
+        rgba(15, 14, 13, 0.7) 0%,
+        rgba(15, 14, 13, 0.85) 60%,
+        rgba(15, 14, 13, 0.95) 100%
+    ),
+    linear-gradient(
+        120deg,
+        rgba(230, 180, 94, 0.15) 0%,
+        rgba(230, 180, 94, 0.05) 40%,
+        rgba(30, 26, 23, 0.9) 100%
+    ),
+    url("../assets/img/rioDeJaneiroFundo.png");
+    background-size: cover;
 
-    transition: all 1000ms ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.login-container{
-    width: 100%;
-    height: 100%;
+.form-container{
+    width: 40vw;
+    height: 90vh;
+
+    background-color: var(--color-bg-primary);
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+
+    border: 0.02vh solid var(--color-primary-light);
+    border-radius: 2vh;
+
+    color: var(--color-text-primary);
+    gap: 2vh;
 }
 
-.login-top{
-    width: 100%;
-    height: 10%;
-
+.form-top{
     display: flex;
     align-items: center;
+    flex-direction: column;
     justify-content: center;
 
-    padding-top: 10%;
+    margin-top: 5vh;
+
+    gap: 1vh;
 }
 
-.login-top h1{
-    font-size: 10vh;
-    color: var(--accent);
+.form-top h1{
+    color: var(--color-primary);
+    font-size: 7vh;
 }
 
-.login-mid{
-    width: 100%;
-    height: 80%;
+.form-top h2{
+    color: var(--color-text-primary);
+    font-size: 4vh;
+}
 
+.form-top h2::after{
+    content: "";
+    position: relative;
+    left: -3vw;
+    top: -50%;
+    display: flex;
+
+    width: 2vw;
+    height: 0.1vh;
+
+    background-color: var(--color-primary);
+}
+
+.form-top h2::before{
+    content: "";
+    position: relative;
+    right: -7.7vw;
+    bottom: -50%;
+    display: flex;
+
+    width: 2vw;
+    height: 0.1vh;
+
+    background-color: var(--color-primary);
+}
+
+.form-mid{
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 
-    gap: 10vh;
-}
-
-.login-mid input{
-    width: 60%;
-    height: 10vh;
-
-    font-size: 3vh;
     text-align: center;
 
-    border: none;
-    border-radius: 50px;
-
-    transition: 200ms all ease;    
+    gap: 1vh;
 }
 
-.login-bottom{
+.form-mid h1{
+    color: var(--color-primary);
+    font-size: 3vh;
+}
+
+.form-mid p{
+    font-size: 2vh;
+}
+
+form{
     width: 100%;
-    height: 10%;
+    height: fit-content;
+
+    margin-top: 5vh;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    gap: 2vh;
-
-    padding-bottom: 10%;
 }
 
-.login-bottom p{
-    color: white;
+.input-container{
+    width: 100%;
+    height: fit-content;
 
-    padding-right: 3%;
-    font-size: 1.5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.login-bottom button{
-    width: 30%;
-    height: 8vh;
-
-    background-color: var(--primary);
-    color: var(--accent);
-
-    font-size: 4vh;
-
-    cursor: pointer;
-
-    border-radius: 10px;
-    border: none;
-
-    transition: all 200ms ease;
+.input{
+    width: 50%;
+    height: fit-content;
 }
 
-.login-bottom button:hover{
-    color: color-mix(in srgb, var(--accent), black 20%);
-    background-color: color-mix(in srgb, var(--primary), black 20%);
+label{
+    width: 50%;
 }
 
-.login-bottom a{
-    cursor: pointer;
+input{
+    width: 100%;
+    height: 6vh;
 
-    color: var(--accent);
-    text-decoration: underline;
+    padding-left: 1vw;
+    color: var(--color-primary-light);
+    
+    background-color: transparent;
 
-    transition: all 200ms ease;
+    font-size: 2vh;
+
+    border: var(--color-primary) solid 1px;
+    border-radius: 1vh;
 }
 
-.login-bottom a:hover{
-    color: color-mix(in srgb, var(--accent), black 50%);
+.form-btn-container{
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid red;
+}
+
+.form-btn{
+    height: 5vh;
+    width: 50%;
+
 }
