@@ -12,35 +12,115 @@
     <section>
         <div class="form-container">
             <div class="form-top">
-                <h1>TAMARINEIRA</h1>
-                <h2>QUIZ</h2>
+                <img src="../assets/img/logoInteira.png">
             </div>
             <div class="form-mid">
                 <h1>Bem-vindo de volta!</h1>
-                <p>Faça login para continuar sua jornada<br>pelo mundo do samba</p>
+                <p>Faça login para continuar sua jornada</p>
             </div>
-            <form>
+            <form id="form">
                 <div class="input-container">
                     <label>E-mail</label>
                     <div class="input">
-                        <input type="text" placeholder="seu@email.com">
+                        <input type="text" placeholder="seu@email.com" id="inEmail">
                         <img src="">
                     </div>
                 </div>
                 <div class="input-container">
                     <label>Senha</label>
                     <div class="input">
-                        <input type="password" placeholder="*************">
+                        <input type="password" placeholder="*************" id="inPass">
                         <img src="">
                     </div>
                 </div>
+                <div class="errorMsg" id="errMsg">Usuário não encontrado!</div>
                 <div class="form-btn-container">
                     <button class="form-btn" type="submit">Entrar</button>
+                    <p>Não tem uma conta? <span>Cadastre-se</span></p>
                 </div>
             </form>
 
-            <p>Não tem uma conta? <span>Cadastre-se</span></p>
         </div>
     </section>
 </body>
+<script>
+
+    window.addEventListener('input', () => {
+        let email = String(inEmail.value);
+        let pass = String(inPass.value); 
+
+        errMsg.style.opacity = 0;
+
+
+        let regEmail = /^[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+$/;
+        let regSenha = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+
+        if(!regEmail.test(email)){
+            inEmail.classList.add('wrongInput');
+        }else{
+            inEmail.classList.remove('wrongInput')
+        }
+        if(!regSenha.test(pass)){
+            inPass.classList.add('wrongInput')
+        }else{
+            inPass.classList.remove('wrongInput')
+        }
+    })
+
+    function isPassed(){
+        let email = String(inEmail.value);
+        let pass = String(inPass.value); 
+
+        let regEmail = /^[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+$/;
+        let regSenha = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+
+        if(regEmail.test(email) && regSenha.test(pass)){
+            return true;
+        }
+
+        return false;
+    }
+
+    let frm = document.getElementById('form');
+    frm.addEventListener('submit', (e) => {
+        let email = String(inEmail.value);
+        let pass = String(inPass.value);    
+        
+        if(isPassed()){
+            login(email, pass);
+        }
+
+
+        e.preventDefault()
+    })
+
+    async function login(email, password){
+        try {
+            let response = await fetch('http://localhost:8080/usuarios/autenticar', {
+                method:'POST',
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                body:JSON.stringify({
+                    emailServer: email,
+                    senhaServer: password
+                })
+            })
+            if(response.ok){
+                let data = await response.json();
+                console.log(data)
+                sessionStorage.setItem('userId', data.id);
+                sessionStorage.setItem('username', data.name);
+
+                setTimeout(() => {
+                    window.location = '../quiz/'
+                }, 2000)
+            }else{
+                errMsg.style.opacity = 1;
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
+</script>
 </html>

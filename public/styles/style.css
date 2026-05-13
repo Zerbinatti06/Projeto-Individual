@@ -174,10 +174,35 @@ section{
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    border-bottom: 0.1vh var(--color-primary) solid;
+}
+
+.logo{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    margin-left: 2vw;
+}
+
+.logo img{
+    width: 30%;
+    height: 100%;
+
+    transform: translateY(-2vh);
+}
+
+.top p{
+    border-left: 0.1vh solid color-mix(in srgb, var(--color-primary) 30%, transparent 90%);
+    padding-left: 1vw;
+
+    width: 120%;
 }
 
 .title-top{
-    width: 40%;
+    width: 80%;
     height: 100%;
 
     display: flex;
@@ -186,7 +211,7 @@ section{
     align-items: flex-start;
 
     font-size: 3vh;
-    margin-left: 2vw;
+    margin-left: 1vw;
 
     color: var(--color-primary);
 }
@@ -196,6 +221,19 @@ section{
     color: var(--color-text-primary);
 }
 
+.separate{
+    width: 30%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.separate img{
+    width: 80%;
+    filter: invert(72%) sepia(34%) saturate(612%) hue-rotate(357deg) brightness(92%) contrast(91%);
+}
+
 .authBtn-container{
     height: 100%;
     width: 30%;
@@ -203,39 +241,60 @@ section{
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-right: 5vw;
 
-    gap: 5vw;
+    margin-right: 2vw;
+
+    gap: 2vw;
 }
 
 .authBtn{
-    width: 10vw;
+    width: 50%;
     height: 5vh;
 
-    border: none;
-    border-radius: 10vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 1vw;
+
+    border: 0.1vh solid var(--color-primary);
+    border-radius: 0.5vw;
+
+    font-family: 'Playfair', sans-serif;
 
     font-size: 2vh;
     transition: all 200ms ease;
 }
 
 #login{
-    background-color: var(--color-primary);
-    color: var(--color-bg-dark);
+    width: 30%;
+    background-color: transparent;
+    color: var(--color-text-primary);
+}
+
+#login img{
+    width: 20%;
+    filter: invert(82%) sepia(35%) saturate(517%) hue-rotate(356deg) brightness(103%) contrast(92%);
 }
 
 #login:hover{
-    background-color: color-mix(in srgb, var(--color-primary) 90%, #000 50%);
+    background-color: var(--color-primary);
 }
 
 #register{
-    background-color: var(--color-primary-soft);
-    color: var(--color-black-soft);
+    background-color: var(--color-primary-light);
+    color: var(--);
+    border: none;
 }
 
 #register:hover{
-    background-color: color-mix(in srgb, var(--color-primary-soft) 90%, #000 50%);
+    background-color: color-mix(in srgb, var(--color-primary-light) 90%, #000 50%);
 }   
+
+#register img{
+    width: 12%;
+    filter: invert(82%) sepia(35%) saturate(517%) hue-rotate(356deg) brightness(103%) contrast(92%);
+}
 
 .cards{
     position: relative;
@@ -444,35 +503,21 @@ section{
 //////////////////////////////////
 */
 
-.modal-container{
+.modal-background{
     width: 100%;
     height: 100vh;
-
+    
     background-color: rgba(0, 0, 0, 0.363);
 
     position: absolute;
     z-index: 3;
 }
 
-.teste{
-    width: 80%;
-    height: 100%;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    background-image: url('../assets/img/blocoCacique.jpg');
-    background-position: center;
-    background-size: cover;
-}
-
-.modal{
+.modal-content-container{
     width: 90%;
     height: 90%;
 
-    background-color: var(--color-bg-primary);
+    background-color: var(--color-black-soft);
     border: var(--color-primary) 0.008vh solid;
     border-radius: 2vh;
 
@@ -485,12 +530,7 @@ section{
 }
 
 .modal-content{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    width: 90%;
+    width: 100%;
     height: 100%;
 
     display: flex;
@@ -498,122 +538,75 @@ section{
     justify-content: center;
 }
 
-.modal-content-left{
-    width: 40%;
+.modal{
+    width: 100%;
     height: 100%;
 
-    display:  flex;
+    color: white;
+    margin-left: 10vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    border-radius: 2vh;
+
+    box-shadow: inset 40vw 0 50px -4px var(--color-black-soft);
+
+    background-position: center;
+    background-size: cover;
+}
+
+#modal1970{background-image: url('../assets/img/blocoCacique.jpg');}
+#modal1980{background-image: url('../assets/img/bloco80.jpg');}
+#modal1990{background-image: url('../assets/img/show90.jpg');}
+#modal2000{background-image: url('../assets/img/roda2000.jpg');}
+#modal2010{background-image: url('../assets/img/roda2010.jpg');}
+
+.modal-title{
+    color: var(--color-primary);
+    font-size: 10vh;
+    font-weight: 200;
+
+    width: 40%;
+    height: fit-content;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.modal-subtitle{
+    color: var(--color-primary);
+    font-size: 2vh;
+    font-weight: 200;
+
+    width: 40%;
+
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
 
-    gap: 5vh;
+    gap: 2vh;
 }
 
-.modal-content-left h1{
-    color: var(--color-primary);
-    font-size: 20vh;
-    font-weight: 300;
-}
-.modal-content-left h2{
-    color: var(--color-primary);
-    font-weight: 100;
-    font-size: 3vh;
+.modal img{
+    width: fit-content;
+    height: 5vh;
+
+    filter: invert(72%) sepia(34%) saturate(612%) hue-rotate(357deg) brightness(92%) contrast(91%);
 }
 
-.modal-content-left p{
+.modal-text{
     color: var(--color-text-primary);
-    font-size: 2vh;
+    font-size: 2.5vh;
+
+    width: 40%;
+
+    margin-top: 5vh;
 }
 
-.modal-content-right{
-    position: relative;
-    width: 60%;
-    height: 100%;
 
-    box-shadow: inset 1px 1px 3vh 10vh var(--color-bg-primary);
-    border-radius: 30%;
-}
-
-#right1::before{
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-
-    background-image: url('../assets/img/blocoCacique.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-radius: 100%; 
-    background-position: center;
-}
-
-#right2::before{
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-
-    background-image: url('../assets/img/bloco80.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-radius: 100%; 
-    background-position: center;
-}
-
-#right3::before{
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-
-    background-image: url('../assets/img/show90.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-radius: 100%; 
-    background-position: center;
-}
-
-#right4::before{
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-
-    background-image: url('../assets/img/roda2000.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-radius: 100%; 
-    background-position: center;
-}
-
-#right5::before{
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-
-    background-image: url('../assets/img/roda2010.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-radius: 100%; 
-    background-position: center;
-}
 
 /* 
 //////////////////////////////////

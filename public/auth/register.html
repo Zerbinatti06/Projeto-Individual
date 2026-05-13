@@ -9,6 +9,132 @@
     <link rel="stylesheet" href="../styles/styleAuth.css">
 </head>
 <body>
-    
+    <section>
+        <div class="form-container">
+            <div class="form-top">
+                <img src="../assets/img/logoInteira.png">
+            </div>
+            <div class="form-mid">
+                <h1>Bem-vindo de volta!</h1>
+                <p>Faça login para continuar sua jornada</p>
+            </div>
+            <form id="form">
+                <div class="input-container">
+                    <label>Nome de Usuário</label>
+                    <div class="input">
+                        <input type="text" placeholder="Seu apelido" id="inUsername">
+                        <img src="">
+                    </div>
+                </div>
+                <div class="input-container">
+                    <label>E-mail</label>
+                    <div class="input">
+                        <input type="text" placeholder="seu@email.com" id="inEmail">
+                        <img src="">
+                    </div>
+                </div>
+                <div class="input-container">
+                    <label>Senha</label>
+                    <div class="input">
+                        <input type="password" placeholder="*************" id="inPass">
+                        <img src="">
+                    </div>
+                </div>
+                <div class="errorMsg" id="errMsg">Usuário não encontrado!</div>
+                <div class="form-btn-container">
+                    <button class="form-btn" type="submit">Entrar</button>
+                    <p>Não tem uma conta? <span>Cadastre-se</span></p>
+                </div>
+            </form>
+
+        </div>
+    </section>
 </body>
+<script>
+
+    window.addEventListener('input', () => {
+        let email = String(inEmail.value);
+        let pass = String(inPass.value); 
+        let username = String(inUsername.value)
+
+        errMsg.style.opacity = 0;
+
+
+        let regEmail = /^[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+$/;
+        let regSenha = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+        let regUsername = /^[a-zA-Z0-9_]{3,20}$/;
+
+        if(!regEmail.test(email)){
+            inEmail.classList.add('wrongInput');
+        }else{
+            inEmail.classList.remove('wrongInput')
+        }
+
+        if(!regSenha.test(pass)){
+            inPass.classList.add('wrongInput')
+        }else{
+            inPass.classList.remove('wrongInput')
+        }
+
+        if(!regUsername.test(username)){
+            inUsername.classList.add('wrongInput')
+        }else{
+            inUsername.classList.remove('wrongInput')
+        }
+    })
+
+    function isPassed(){
+        let email = String(inEmail.value);
+        let pass = String(inPass.value); 
+        let username = String(inUsername.value);
+
+        let regEmail = /^[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+$/;
+        let regSenha = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+        let regUsername = /^[a-zA-Z0-9_]{3,20}$/;
+
+        if(regEmail.test(email) && regSenha.test(pass) && regUsername.test(username)){
+            return true;
+        }
+
+        return false;
+    }
+
+    let frm = document.getElementById('form');
+    frm.addEventListener('submit', (e) => {
+        let email = String(inEmail.value);
+        let pass = String(inPass.value);    
+        let username = String(inUsername.value);
+        
+        if(isPassed()){
+            register(email, pass, username);
+        }
+
+        e.preventDefault()
+    })
+
+    async function register(email, password, username){
+        try {
+            let response = await fetch('http://localhost:8080/usuarios/cadastrar', {
+                method:'POST',
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                body:JSON.stringify({
+                    nomeServer: username,
+                    emailServer: email,
+                    senhaServer: password
+                })
+            })
+            if(response.ok){
+                setTimeout(() => {
+                    window.location = './login.html'
+                }, 2000)
+            }else{
+                errMsg.style.opacity = 1;
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
+</script>
 </html>

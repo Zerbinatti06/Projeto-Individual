@@ -19,10 +19,10 @@ window.addEventListener('keypress', () => {
     }
 })
 
-const modals = document.querySelectorAll('.modal')
 
 function openModal(id){
-    let modalContainer = document.getElementById('modalContainer');
+    const modals = document.querySelectorAll('.modal-content-container');
+    let modalContainer = document.getElementById('modalBackground');
     modalContainer.classList.remove("none")
     
     Array.from(modals).forEach((modal, index) => {
@@ -36,7 +36,10 @@ function openModal(id){
 }
 
 function closeModal(){
-    let modalContainer = document.getElementById('modalContainer');
+    let modalContainer = document.getElementById('modalBackground');
 
     modalContainer.classList.add('none')
 }
+
+
+

@@ -27,128 +27,200 @@
         </section>
         <section class="none" id="sec2">
                 <div class="top">
-                    <div class="title-top">
-                        <p class="title-top-1">LINHA DO TEMPO</p>
-                        <p>NAVEGUE PELA HISTÓRIA</p>
+                    <div class="logo">
+                        <img src="./assets/img/logo.png">
+                        <div class="title-top">
+                            <p class="title-top-1">LINHA DO TEMPO</p>
+                            <p>NAVEGUE PELA HISTÓRIA</p>
+                        </div>
+                    </div>
+                    <div class="separate">
+                        <img src="./assets/img/particao.svg">
                     </div>
                     <div class="authBtn-container">
-                        <button class="authBtn" id="register" onclick="window.location.href = './auth/register.html'">Cadastro</button>
-                        <button class="authBtn" id="login" onclick="window.location.href = './auth/login.html'">Login</button>
+                        <button class="authBtn" id="login" onclick="window.location.href = './auth/login.html'"><img src="./assets/img/login.svg">LOGIN</button>
+                        <button class="authBtn" id="register" onclick="window.location.href = './auth/register.html'"><img src="./assets/img/register.svg">CADASTRE-SE</button>
                     </div>
                 </div>
 
-                <div class="cards">
-                    <div class="card" id="card1970">
-                        <h1>1970</h1>
-                        <p class="p">O NASCIMENTO DE UM MOVIMENTO</p>
-                        <div class="btn-card" onclick="openModal(0)">
-                            <p>EXPLORAR DÉCADA</p>
-                            <img src="./assets/img/arrow-right.svg">
-                        </div>
-                    </div>
-                    <div class="card" id="card1980">
-                        <h1>1980</h1>
-                        <p class="p">A CONSOLIDAÇÃO DAS ESCOLAS</p>
-                        <div class="btn-card" onclick="openModal(1)">
-                            <p>EXPLORAR DÉCADA</p>
-                            <img src="./assets/img/arrow-right.svg">
-                        </div>
-                    </div>
-                    <div class="card" id="card1990">
-                        <h1>1990</h1>
-                        <p class="p">A ERA DOS FESTIVAIS</p>
-                        <div class="btn-card" onclick="openModal(2)">
-                            <p>EXPLORAR DÉCADA</p>
-                            <img src="./assets/img/arrow-right.svg">
-                        </div>
-                    </div>
-                    <div class="card" id="card2000">
-                        <h1>2000</h1>
-                        <p class="p">O SAMBA CHEGA AO NOVO MILÊNIO</p>
-                        <div class="btn-card" onclick="openModal(3)">
-                            <p>EXPLORAR DÉCADA</p>
-                            <img src="./assets/img/arrow-right.svg">
-                        </div>
-                    </div>
-                    <div class="card" id="card2010">
-                        <h1>2010</h1>
-                        <p class="p">NOVAS VOZES, NOVOS CAMINHOS</p>
-                        <div class="btn-card" onclick="openModal(4)">
-                            <p>EXPLORAR DÉCADA</p>
-                            <img src="./assets/img/arrow-right.svg">
-                        </div>
-                    </div>
+                <div class="cards" id="cards-container">
+                    <!--  Aqui ficarão os cards  -->
                 </div>
 
-                <div class="modal-container none" id="modalContainer" onclick="closeModal()">
-                    <div class="modal none" id="modal1970">
-                        <div class="teste">
-                            <h1>1970</h1>
-                            <h2>O NASCIMENTO DO SAMBA MODERNO</h2>
-                            <p>A década de 1970 marca o ponto de partida do samba moderno. Em meio às rodas de samba do bloco Cacique de Ramos, no Rio de Janeiro, músicos como Bira Presidente, Sereno, Ubirany e Almir Guineto começaram a reinventar a linguagem do gênero.</p>
-                            <p>Instrumentos como o tantã, o repique de mão e o banjo passaram a integrar as rodas, criando uma sonoridade mais urbana, mais percussiva e mais próxima das comunidades suburbanas.Mais do que música, o samba dessa época se consolidou como espaço de encontro, resistência cultural e identidade popular.</p>
-                        </div>
-                    </div>
-                    <div class="modal none" id="modal1980">
-                        <div class="modal-content">
-                            <div class="modal-content-left">
-                                <div class="modal-content-left-top">
-                                    <h1>1980</h1>
-                                    <h2>A CONSOLIDAÇÃO DAS ESCOLAS</h2>
-                                </div>
-                                <p>Nos anos 1980, o samba alcança uma nova dimensão popular. O sucesso de grupos como Fundo de Quintal, Zeca Pagodinho e Jorge Aragão ajuda a consolidar uma identidade moderna para o gênero.</p>
-                                <p>As escolas de samba expandem sua presença cultural, os desfiles se tornam espetáculos televisivos e o samba passa a ocupar um espaço ainda maior na indústria musical brasileira. É também nesse período que o pagode se fortalece como linguagem urbana das periferias e subúrbios cariocas.</p>
-                            </div>
-                            <div class="modal-content-right" id="right2">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal none" id="modal1990">
-                        <div class="modal-content">
-                            <div class="modal-content-left">
-                                <div class="modal-content-left-top">
-                                    <h1>1990</h1>
-                                    <h2>A ERA DOS FESTIVAIS</h2>
-                                </div>
-                                <p>A década de 1990 marcou a explosão comercial do samba e do pagode. Grupos como Raça Negra, Só Pra Contrariar, Exaltasamba e Art Popular levaram o gênero às rádios, televisões e grandes eventos nacionais.</p>
-                                <p>O samba passou a dialogar diretamente com a cultura pop brasileira, aproximando novas gerações e expandindo sua presença para além do Rio de Janeiro.Enquanto isso, o samba tradicional seguia vivo nas rodas suburbanas e nos encontros comunitários que preservavam suas raízes.</p> 
-                            </div>
-                            <div class="modal-content-right" id="right3">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal none" id="modal2000">
-                        <div class="modal-content">
-                            <div class="modal-content-left">
-                                <div class="modal-content-left-top">
-                                    <h1>2000</h1>
-                                    <h2>O SAMBA CHEGA AO NOVO MILÊNIO</h2>
-                                </div>
-                                <p>Nos anos 2000, o samba passou por uma fase de renovação estética e cultural. Novos artistas surgiram enquanto nomes históricos permaneciam influentes no cenário nacional.</p>
-                                <p>As rodas de samba voltaram a ganhar força como espaços de encontro, celebração e preservação da memória musical brasileira.Ao mesmo tempo, o gênero começou a dialogar com a internet, novas mídias e públicos cada vez mais diversos.</p>
-                            </div>
-                            <div class="modal-content-right" id="right4">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal none" id="modal2010">
-                        <div class="modal-content">
-                            <div class="modal-content-left">
-                                <div class="modal-content-left-top">
-                                    <h1>2010</h1>
-                                    <h2>NOVAS VOZES, NOVOS CAMINHOS</h2>
-                                </div>
-                                <p>Nos anos 2000, o samba passou por uma fase de renovação estética e cultural. Novos artistas surgiram enquanto nomes históricos permaneciam influentes no cenário nacional.</p>
-                                <p>As rodas de samba voltaram a ganhar força como espaços de encontro, celebração e preservação da memória musical brasileira.Ao mesmo tempo, o gênero começou a dialogar com a internet, novas mídias e públicos cada vez mais diversos.</p>
-                            </div>
-                            <div class="modal-content-right" id="right5">
-                            </div>
-                        </div>
-                    </div>
+                <div class="modal-background none" id="modalBackground" onclick="closeModal()">
+                    <!--  Aqui ficarão as janelas modais -->
                 </div>
         </section>
         <div class="curtain"></div>
     </main>
 </body>
 <script src="./scripts/animation.js"></script>
+<script>
+    let cards = [
+    {
+        "id": "card1970",
+        "decada": 1970,
+        "titulo": "1970",
+        "subtitulo": "O NASCIMENTO DE UM MOVIMENTO",
+        "botao": {
+        "texto": "EXPLORAR DÉCADA",
+        "icone": "./assets/img/arrow-right.svg",
+        "acao": "openModal(0)"
+        }
+    },
+    {
+        "id": "card1980",
+        "decada": 1980,
+        "titulo": "1980",
+        "subtitulo": "A CONSOLIDAÇÃO DAS ESCOLAS",
+        "botao": {
+        "texto": "EXPLORAR DÉCADA",
+        "icone": "./assets/img/arrow-right.svg",
+        "acao": "openModal(1)"
+        }
+    },
+    {
+        "id": "card1990",
+        "decada": 1990,
+        "titulo": "1990",
+        "subtitulo": "A ERA DOS FESTIVAIS",
+        "botao": {
+        "texto": "EXPLORAR DÉCADA",
+        "icone": "./assets/img/arrow-right.svg",
+        "acao": "openModal(2)"
+        }
+    },
+    {
+        "id": "card2000",
+        "decada": 2000,
+        "titulo": "2000",
+        "subtitulo": "O SAMBA CHEGA AO NOVO MILÊNIO",
+        "botao": {
+        "texto": "EXPLORAR DÉCADA",
+        "icone": "./assets/img/arrow-right.svg",
+        "acao": "openModal(3)"
+        }
+    },
+    {
+        "id": "card2010",
+        "decada": 2010,
+        "titulo": "2010",
+        "subtitulo": "NOVAS VOZES, NOVOS CAMINHOS",
+        "botao": {
+        "texto": "EXPLORAR DÉCADA",
+        "icone": "./assets/img/arrow-right.svg",
+        "acao": "openModal(4)"
+        }
+    }
+    ]
+
+    function createCards(){
+        let cards_container = document.getElementById('cards-container');
+    
+        cards.forEach(el => {
+            let HTML = `
+                <div class="card" id="${el.id}">
+                    <h1>${el.titulo}</h1>
+                    <p class="p">${el.subtitulo}</p>
+                    <div class="btn-card" onclick="${el.botao.acao}">
+                        <p>${el.botao.texto}</p>
+                        <img src="${el.botao.icone}">
+                    </div>
+                </div>
+            `
+    
+            cards_container.innerHTML += HTML;
+        });
+    }
+
+    let modais = [
+        {
+            "id": "modal1970",
+            "content": {
+            "title": "1970",
+            "subtitle": "O NASCIMENTO DO SAMBA MODERNO",
+            "texts": [
+                "A década de 1970 marca o ponto de partida do samba moderno. Em meio às rodas de samba do bloco Cacique de Ramos, no Rio de Janeiro, músicos como Bira Presidente, Sereno, Ubirany e Almir Guineto começaram a reinventar a linguagem do gênero.",
+                "Instrumentos como o tantã, o repique de mão e o banjo passaram a integrar as rodas, criando uma sonoridade mais urbana, mais percussiva e mais próxima das comunidades suburbanas. Mais do que música, o samba dessa época se consolidou como espaço de encontro, resistência cultural e identidade popular."
+            ]
+            }
+        },
+        {
+            "id": "modal1980",
+            "content": {
+            "title": "1980",
+            "subtitle": "A CONSOLIDAÇÃO DAS ESCOLAS",
+            "texts": [
+                "Nos anos 1980, o samba alcança uma nova dimensão popular. O sucesso de grupos como Fundo de Quintal, Zeca Pagodinho e Jorge Aragão ajuda a consolidar uma identidade moderna para o gênero.",
+                "As escolas de samba expandem sua presença cultural, os desfiles se tornam espetáculos televisivos e o samba passa a ocupar um espaço ainda maior na indústria musical brasileira. É também nesse período que o pagode se fortalece como linguagem urbana das periferias e subúrbios cariocas."
+            ]
+            }
+        },
+        {
+            "id": "modal1990",
+            "content": {
+            "title": "1990",
+            "subtitle": "A ERA DOS FESTIVAIS",
+            "texts": [
+                "A década de 1990 marcou a explosão comercial do samba e do pagode. Grupos como Raça Negra, Só Pra Contrariar, Exaltasamba e Art Popular levaram o gênero às rádios, televisões e grandes eventos nacionais.",
+                "O samba passou a dialogar diretamente com a cultura pop brasileira, aproximando novas gerações e expandindo sua presença para além do Rio de Janeiro. Enquanto isso, o samba tradicional seguia vivo nas rodas suburbanas e nos encontros comunitários que preservavam suas raízes."
+            ]
+            }
+        },
+        {
+            "id": "modal2000",
+            "content": {
+            "title": "2000",
+            "subtitle": "O SAMBA CHEGA AO NOVO MILÊNIO",
+            "texts": [
+                "Nos anos 2000, o samba passou por uma fase de renovação estética e cultural. Novos artistas surgiram enquanto nomes históricos permaneciam influentes no cenário nacional.",
+                "As rodas de samba voltaram a ganhar força como espaços de encontro, celebração e preservação da memória musical brasileira. Ao mesmo tempo, o gênero começou a dialogar com a internet, novas mídias e públicos cada vez mais diversos."
+            ]
+            }
+        },
+        {
+            "id": "modal2010",
+            "content": {
+            "title": "2010",
+            "subtitle": "NOVAS VOZES, NOVOS CAMINHOS",
+            "texts": [
+                "Nos anos 2000, o samba passou por uma fase de renovação estética e cultural. Novos artistas surgiram enquanto nomes históricos permaneciam influentes no cenário nacional.",
+                "As rodas de samba voltaram a ganhar força como espaços de encontro, celebração e preservação da memória musical brasileira. Ao mesmo tempo, o gênero começou a dialogar com a internet, novas mídias e públicos cada vez mais diversos."
+            ]
+            }
+        }
+    ]
+
+    function createModals(){
+        let modal_background = document.getElementById('modalBackground');
+
+        modais.forEach(el => {
+            let HTML = `
+                <div class="modal-content-container none">
+                    <div class="modal-content">
+                        <div class="modal" id="${el.id}">
+                            <div class="modal-title">
+                                <h1>${el.content.title}</h1>
+                            </div>
+                            <div class="modal-subtitle">
+                                <h2>${el.content.subtitle}</h2>
+                                <img src="./assets/img/particao.svg">
+                            </div>
+                            <div class="modal-text">
+                                <p>${el.content.texts[0]}</p>
+                                <br>
+                                <p>${el.content.texts[1]}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `
+            modal_background.innerHTML += HTML;
+        })
+
+    }
+
+    createModals();
+    createCards();
+</script>
 </html>
