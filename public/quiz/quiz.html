@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/styleQuizQuiz.css">
+    <title id="pageTitle"></title>
+</head>
+<body>
+    <main>
+        <div class="progress" id="progressContainer">
+            <!-- Aqui aparecerá os status de proguesso-->
+        </div>
+        <div class="quiz" id="quiz">
+            
+        </div>
+        <div class="buttons" >
+            <button onclick="nextQuestion()" id="btnJump"><span>Pular</span><img src="../assets/img/shuffle.svg"></button>
+            <button id="btnNext" class="blocked" onclick="nextQuestion()" disabled><span>Próxima</span><img src="../assets/img/arrow-right.svg" id="imgArrow"></button>
+            <button id="btnFinish" class="blocked btnFinish" style="display: none;" onclick="finishQuiz()"><span>Finalizar</span></button>
+        </div>
+
+        <div class="modal" id="resultModal" style="display: none;">
+            <!--Aqui aparecerão os resultados-->
+        </div>
+    </main>
+</body>
+<script>
+    let quizId = sessionStorage.getItem("quizId");
+    let resultModal = document.getElementById("resultModal")
+
+
+    let isSelected = false;
+    let quiz = [];  
+    let questions = [];
+    let answers = [];
+
+    let currentQuestion = 1;
+
+    let choices = [];
+
+    async function getInfo(){
+        let questionsRequest = await fetch(`/quiz/getQuestions/${quizId}`)
+        let answersRequest = await fetch(`/quiz/getAnswers/${quizId}`)
+        let quizRequest = await fetch(`/quiz/getQuiz/${quizId}`)
+
+        if(questionsRequest.ok && answersRequest.ok && quizRequest.ok){
+            questions = await questionsRequest.json();
+            answers = await answersRequest.json();
+            quiz = await quizRequest.json();
+        }   
+    }
+
+    function mountQuestion(){
+        mountTop();
+        mountBottom();
+    }
+
+    function mountTop(){
+        let progressContainer = document.getElementById("progressContainer")
+
+        let top = `
+            <div class="top">
+                <div class="quitBtn" onclick="previousQuestion()">
+                    <img src="../assets/img/arrow-left.svg">
+                </div>
+                <div class="question" id="questions">
+                    ${currentQuestion} de ${questions.length} questões
+                </div>
+                <div class="points">
+                    <p>Pontuação</p>
+                    <div class="point">${quiz[0].points} pts</div>
+                </div>
+            </div>
+            <div class="progressBar">
+                <progress max="${questions.length}" value="${currentQuestion}" id="progress"></progress>
+            </div>
+        `   
+
+        progressContainer.innerHTML = top;
+    }
+
+    function mountBottom(){
+        let questionContainer = document.getElementById("quiz")
+        let answer = ""
+        let num = 0
+
+        answers.forEach(ans => {
+            let letters = ["A", "B", "C", "D"]
+            if(ans.questionId == questions[currentQuestion - 1].questionId){
+                answer += `
+                <div class="answer" onclick="select(${ans.answerId})" id="${"ans" + ans.answerId}">
+                <div class="letter">${letters[num]}</div>
+                    <span>${ans.text}</span>
+                </div>
+                `
+
+                num++
+            }
+        })
+
+        let question = `
+            <div class="top">
+                <div class="title">${questions[currentQuestion - 1].question}</div>
+            </div>
+            <div class="bottom">
+                ${answer}
+            </div>
+        `
+        questionContainer.innerHTML = question;
+    }
+
+    function select(answerId){
+        let currentQuestionId =  questions[currentQuestion - 1].questionId
+        
+        if(answerId == null){
+            choices[currentQuestion - 1] = {
+                quizId: quizId,
+                questionId: currentQuestionId,
+                answerId: null
+            };
+            return;
+        }
+
+        let answer = document.getElementById("ans" + answerId);
+        let answers = document.querySelectorAll(".answer")
+
+        choices[currentQuestion - 1] = {
+            quizId: quizId,
+            questionId: currentQuestionId,
+            answerId: answerId
+        }
+
+        btnNext.disabled = !btnNext.disabled;
+
+        if(answer.classList.contains("selected")){
+            isSelected = false
+            answer.classList.remove("selected")
+
+            choices[currentQuestion - 1] = {
+                questionsId: currentQuestionId,
+                answerId: answerId
+            }
+
+            btnNext.classList.add("blocked")
+            btnFinish.classList.add("blocked")
+            return;     
+        };
+
+        answers.forEach(ans => {
+            ans.classList.remove("selected");
+        })
+
+        isSelected = true;
+        answer.classList.add("selected")
+        btnNext.classList.remove("blocked")
+        btnFinish.classList.remove("blocked")
+    }
+
+    function nextQuestion(){
+        if(!isSelected){    
+            select(null);
+        };
+        currentQuestion++
+        btnNext.classList.add("blocked")
+        btnFinish.classList.add("blocked")
+        isSelected = false;
+        btnNext.disabled = !btnNext.disabled;
+        init();
+    }
+
+    function previousQuestion(){
+        if(currentQuestion == 1) window.location = "./index.html";
+
+        currentQuestion--
+        btnNext.classList.add("blocked")
+        btnFinish.classList.add("blocked")
+        isSelected = false;
+        init();
+    }
+
+    function getResults(){
+        let rights = 0
+        
+        choices.forEach(choice => {
+            answers.forEach(ans => {
+                if(choice.answerId == ans.answerId && ans.isRight == 1){
+                    rights++
+                }
+            })
+        })
+
+        let mistakes = choices.length - rights;
+
+        return [rights, mistakes]
+    }
+
+    function mountModal(){
+        let results = getResults()
+
+        let modal = `
+            <div class="modalContainer">
+                <img src="../assets/img/trophy.png">
+                <div class="top">
+                    <div class="result">Parabéns!</div>
+                    <p>Você concluiu o quiz.</p>
+                    <div class="points">${(quiz[0].points/choices.length)*results[0]} pts</div>
+                </div>
+
+                <div class="infos">
+                    <div class="info">
+                        <p>Acertos</p>
+                        <div class="main" id="acertos">${results[0]}</div>
+                    </div>
+                    <div class="info" id="errors">
+                        <p>Erros</p>
+                        <div class="main" id="erros">${results[1]}</div>
+                    </div>
+                    <div class="info">
+                        <p>Aproveitamento</p>
+                        <div class="main" id="aproveitamento">${results[0]/choices.length*100}%</div>
+                    </div>
+                </div>
+
+                <div class="button">
+                    <button onclick="window.location = './ranking.html'">Ver Ranking</button>
+                </div>
+            </div>
+        `
+
+        resultModal.innerHTML = modal;
+    }
+
+    async function registerPlay(){
+        let results = getResults();
+        
+        await fetch("/play/registerPlay", {
+            method: "POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                userId: sessionStorage.getItem("userId"),
+                quizId: quizId,
+                wrong: results[1],
+                right: results[0]
+            })
+        })
+
+        let playIdRequest = await fetch("/play/getLastPlay");
+        let playId = await playIdRequest.json();
+
+        for(let i = 0; i < choices.length; i++){
+            await fetch('/play/registerPlayAnswer', {
+                method: "POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    playId: playId[0].id,
+                    questionId: choices[i].questionId,
+                    answerId: choices[i].answerId
+                })
+            })
+        }
+    }
+
+    async function finishQuiz(){
+        await registerPlay();
+        mountModal();
+        resultModal.style.display = "flex"
+    }
+
+    async function init(){
+        await getInfo();
+        mountQuestion();
+
+        if(currentQuestion == questions.length){
+            btnJump.style.display = "none"
+            btnNext.style.display = "none"
+            btnFinish.style.display = "block"
+        }
+    }
+    init();
+</script>
+</html>

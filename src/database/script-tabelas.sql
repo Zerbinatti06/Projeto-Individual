@@ -12,7 +12,9 @@ create table user(
 create table quiz(
     id          int primary key not null auto_increment,
     userId      int not null,
+    theme       varchar(30),
     title       varchar(255) not null,
+    points      int,
     description varchar(255) not null,
     createdAt   datetime default current_timestamp(),
     constraint quiz_user foreign key (userId) references user(id) on delete cascade

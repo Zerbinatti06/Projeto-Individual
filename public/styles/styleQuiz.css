@@ -1,0 +1,348 @@
+:root {
+
+    /* =========================
+    CORES BASE (BACKGROUND)
+    ========================== */
+    --color-bg-primary: #1E1A17;
+    --color-bg-secondary: #2A241F;
+    --color-bg-elevated: #3A322B;
+    --color-bg-dark: #0F0E0D;
+
+    /* =========================
+    CORES PRINCIPAIS (BRAND)
+    ========================== */
+    --color-primary: #E6B45E;
+    --color-primary-light: #F2C879;
+    --color-primary-soft: #F5E6C8;
+
+    /* =========================
+     TEXTO
+    ========================== */
+    --color-text-primary: #F5F5F5;
+    --color-text-secondary: #CFC7B8;
+    --color-text-muted: #8A8175;
+
+    /* =========================
+     NEUTROS 
+    ========================== */
+    --color-border: #4A4138;
+    --color-black-soft: #0F0E0D;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+html, body{
+    width: 100%;
+    height: 100%;
+}
+
+main{
+    width: 100vw;
+    height: fit-content;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    font-family: sans-serif;
+
+    background-color: var(--color-black-soft);
+}
+
+.top-user{
+    width: 100%;
+    height: 18vh;
+
+    padding: 2vh 0;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo{
+    height: 100%;;
+    width: 20%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo img{
+    height: 100%;
+    width: 50%;
+}
+
+.user{
+    height: 100%;
+    width: 20%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 1vw;
+
+    font-size: 1vw;
+    color: var(--color-text-primary);
+}
+
+.user button{
+    width: 50%;
+    height: 20%;
+
+    font-size: 2vh;
+    color: var(--color-bg-dark);
+
+    border-radius: 1vh;
+    background-color: var(--color-primary);
+    border: none;
+
+    transition: all 200ms ease;
+}
+
+.user button:hover{
+    background-color: transparent;
+    border: 0.2vh solid var(--color-border);
+    color: var(--color-text-primary);
+}
+
+.welcome{
+    width: 90%;
+    height: 20vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    gap: 2vh;
+    padding-left: 5vw;
+
+    color: var(--color-text-primary);
+}
+
+.welcome h1{
+    font-weight: 200;
+    font-family: 'Playfair', sans-serif;
+    font-size: 5vh;
+}
+
+.welcome p{
+    font-weight: 200;
+    font-size: 2vh;
+}
+
+.kpis{
+    width: 100%;
+    height: 30vh;   
+}
+
+.title{
+    padding-left: 5vw;
+
+    font-weight: 600;
+    color: var(--color-text-primary);
+    font-size: 2vh;
+
+    margin-bottom: 1vh;
+}
+
+.cards{
+    width: 100%;
+    height: 90%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly   ;
+}
+
+.card{
+    width: 27%;
+    height: 90%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: color-mix(in srgb, var(--color-bg-primary) 90%, white 10%) 0.3vh solid;
+    border-radius: 2vh;
+    background-color: var(--color-bg-primary);
+}
+
+.card img{
+    width: 30%;
+    height: 40%;
+
+    margin-right: 2vw;
+    margin-bottom: 4vh;
+}
+
+.info{
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    font-size: 2.5vh;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 2vh;
+}
+
+.mainInfo{
+    font-size: 4vh;
+    color: var(--color-primary);
+}
+
+.explore{
+    width: 100%;
+    height: 30vh;
+
+    margin-top: 2vh;
+
+    color: var(--color-text-primary);
+
+    margin-bottom: 15vh;
+}
+
+.decades{
+    width: 90%;
+    height: 30vh;
+
+    padding: 0 5vw;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    gap: 1vw;
+}
+
+.dec{
+    width: 20%;
+    height: 25vh;
+
+    display: flex;
+    flex-direction: column;
+
+    cursor: pointer;
+
+    border-radius: 1vh;
+
+    transition: all 200ms ease;
+}
+
+.dec:hover{
+    transform: translateY(-5%);
+
+    filter: brightness(150%);
+}
+
+.decTitle{
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    margin-left: 2vw;
+
+    color: var(--color-primary);
+    font-size: 7vh;
+    font-family: 'Playfair', sans-serif;
+}
+
+.decDesc{
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    margin-left: 2vw;
+
+    color: var(--color-text-primary);
+    font-size: 1.8vw;   
+    font-family: 'Playfair', sans-serif;
+}
+
+.decAmount{
+    width: 100%;
+
+    display: flex;
+    margin-top: 2vh;
+    margin-left: 2vw;
+
+    font-weight: 300;
+    font-family: sans-serif;
+    font-size: 1.2vw;
+}
+
+#dec1970{
+    background:
+    linear-gradient(
+        to bottom,
+        rgba(15, 14, 13, 0.95) 0%,
+        rgba(15, 14, 13, 0.95) 60%,
+        rgba(15, 14, 13, 0.95) 100%
+    ),
+    url('../assets/img/fundo1970.jpg');
+
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#dec1980{
+    background:
+    linear-gradient(
+        to bottom,
+        rgba(15, 14, 13, 0.95) 0%,
+        rgba(15, 14, 13, 0.95) 60%,
+        rgba(15, 14, 13, 0.95) 100%
+    ),
+    url('../assets/img/fundo1980.jpg');
+
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+#dec1990{
+    background:
+    linear-gradient(
+        to bottom,
+        rgba(15, 14, 13, 0.95) 0%,
+        rgba(15, 14, 13, 0.95) 60%,
+        rgba(15, 14, 13, 0.95) 100%
+    ),
+    url('../assets/img/molejo1990.jpg');
+
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#dec2000{
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(15, 14, 13, 0.95) 0%,
+            rgba(15, 14, 13, 0.95) 60%,
+            rgba(15, 14, 13, 0.95) 100%
+        ),
+        url('../assets/img/thiaguinho2000.jpg');
+
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#dec2010{
+    background:
+    linear-gradient(
+        to bottom,
+        rgba(15, 14, 13, 0.95) 0%,
+        rgba(15, 14, 13, 0.95) 60%,
+        rgba(15, 14, 13, 0.95) 100%
+    ),
+    url('../assets/img/jovens2010.jpg');
+
+    background-size: cover;
+    background-repeat: no-repeat;
+}

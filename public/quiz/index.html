@@ -4,13 +4,253 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/fonts.css">
+    <link rel="stylesheet" href="../styles/styleFooter.css">
     <link rel="stylesheet" href="../styles/styleQuiz.css">
     <title>Quiz</title>
 </head>
 <body>
-    <section></section>
+    <main>
+        <div class="top-user">
+            <div class="logo">
+                <img src="../assets/img/logoInteira.png">
+            </div>
+            <div class="user">
+                <button onclick="logout()">Sair</button>
+            </div> 
+        </div>
+
+
+        <div class="welcome">
+            <h1 id="welcome">Olá, </h1>
+            <p>Pronto para testar seus conhecimentos?</p>
+        </div>
+
+
+        <div class="kpis">
+            <div class="title">
+                <p>Seu progresso</p>
+            </div>
+            <div class="cards"  id="cardsContainer">
+                <!--Aqui aparecerão os cards-->
+            </div>
+        </div>
+
+
+        <div class="explore">
+            <div class="title">
+                Explorar décadas
+            </div>
+            <div class="decades" id="decadesContainer">
+                
+            </div>
+        </div>
+
+
+        <footer>
+            <div class="link selected" onclick="window.location = './index.html'">
+                <img src="../assets/img/home.svg">
+                <p>Início</p>
+            </div>
+            <div class="link" onclick="window.location = './quizzes.html'">
+                <img src="../assets/img/lamp.svg">
+                <p>Quizzes</p>
+            </div>
+            <div class="link" onclick="window.location = './ranking.html'">
+                <img src="../assets/img/rank.svg">
+                <p>Ranking</p>
+            </div>
+        </footer>
+    </main>
 </body>
 <script>
-    username.innerText += `${sessionStorage.getItem('username')}`
+
+    let cards = [
+        {
+            "image": "../assets/img/book.svg",
+            "info": {
+            "title": "Quizzes",
+            "title2": "Concluídos",
+            "id": "totalQuizes",
+            "value": 0,
+            }
+        },
+        {
+            "image": "../assets/img/star.svg",
+            "info": {
+            "title": "Pontuação",
+            "title2": "Total",
+            "id": "totalPoints",
+            "value": 0,
+            }
+        },
+        {
+            "image": "../assets/img/taca.svg",
+            "info": {
+            "title": "Ranking",
+            "title2": "Global",
+            "id": "rankingPercent",
+            "value": 0,
+            }
+        }
+    ]
+    let decades = [
+        {
+            "id": "dec1970",
+            "title": "1970",
+            "theme":"escolas",
+            "description1": "O Nascimento de",
+            "description2": "um movimento",
+            "amount": 0
+        },
+        {
+            "id": "dec1980",
+            "title": "1980",
+            "theme":"bandas",
+            "description1": "A consolidação",
+            "description2": "da escolas",
+            "amount": 0
+        },
+        {
+            "id": "dec1990",
+            "title": "1990",
+            "theme":"rádios",
+            "description1": "A era dos",
+            "description2": "festivais",
+            "amount": 0
+        },
+        {
+            "id": "dec2000",
+            "title": "2000",
+            "theme":"cantores",
+            "description1": "O samba e os",
+            "description2": "novos tempos",
+            "amount": 0
+        },
+        {
+            "id": "dec2010",
+            "title": "2010",
+            "theme":"instrumentos",
+            "description1": "A nova geração",
+            "description2": "e o futuro",
+            "amount": 0
+        }
+    ]
+
+    function logout(){
+        sessionStorage.clear();
+        window.location = "../index.html"
+    }
+
+    function loadPage(){
+        loadSessionStorage();
+        loadCards();
+    }
+
+    function loadCards(){
+        getCardValues(sessionStorage.getItem('userId'));
+        setDecadesAmount();
+    }
+
+    async function getCardValues(id){
+        let totalQuizzes = await fetch(`/usuarios/getQuizzes/${id}`);
+        let totalPoints = await fetch(`/usuarios/getTotalPoints/${id}`);
+        let globalRanking = await fetch(`/usuarios/getGlobalRanking/${id}`);
+
+        if(totalQuizzes.ok && totalPoints.ok){
+            let quizzes =  await totalQuizzes.json();
+            let points = await totalPoints.json();
+            let rankingPercent = await globalRanking.json();
+
+            console.log(quizzes);
+            console.log(points);
+            console.log(rankingPercent);
+
+            if(quizzes.length == 0){
+                cards[0].info.value = 0;
+            }else{
+                cards[0].info.value = quizzes[0].totalQuizes;
+            }
+
+            if(points.length == 0){
+                cards[1].info.value = 0;
+            }else{
+                cards[1].info.value = points[0].totalPoints;
+            }
+
+            if(rankingPercent.length == 0){
+                cards[2].info.value = 'Sem ranking';
+            }else{
+                cards[2].info.value = rankingPercent[0].topGlobal;
+            }
+        }
+
+        constructCards();
+    }
+
+    async function setDecadesAmount(){
+        for(let i = 0; i < decades.length; i++){
+
+            let quizzes = await fetch(`/quiz/getQuizbyTheme`, {
+                method: "POST",
+                headers: {
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    theme: decades[i].theme
+                })
+            })
+            if(quizzes.ok){
+                let data = await quizzes.json();
+
+                let amount = data.length;
+    
+                decades[i].amount = amount;
+            }
+        }
+
+        constructDecades();
+    }
+
+    function loadSessionStorage(){
+        welcome.innerText += ` ${sessionStorage.getItem('username')}!`;
+    }
+
+    function constructCards(){
+        let cardsContainer = document.getElementById('cardsContainer')
+
+        cards.forEach(card => {
+            cardsContainer.innerHTML += `
+                <div class="card">
+                    <img src="${card.image}">
+                        <div class="info">
+                            <p>${card.info.title}<br>${card.info.title2}</p>
+                            <p id="rankingPercent" class="mainInfo">${card.info.value}</p>
+                        </div>
+                    </img>
+                </div>
+            `
+        })
+    }
+
+    function constructDecades(){
+        let decadesContainer = document.getElementById("decadesContainer")
+
+        decades.forEach(decade => {
+            decadesContainer.innerHTML += `
+                <div class="dec" id="${decade.id}" onclick="gotoQuizzes('${decade.theme}')">
+                    <p class="decTitle">${decade.title}</p>
+                    <p class="decDesc">${decade.description1}<br>${decade.description2}</p>
+                    <p class="decAmount">${decade.amount} quizzes</p>
+                </div>
+            `
+        });
+    }
+
+    function gotoQuizzes(theme){
+        sessionStorage.setItem('theme', theme);
+        window.location = "./quizzes.html"
+    }
+    
+    loadPage();
 </script>
 </html>

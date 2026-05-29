@@ -1,0 +1,43 @@
+footer{
+    position: fixed;
+
+    left: 0;
+    bottom: 0;
+
+
+    width: 100%;
+    height: 8vh;
+
+    color: var(--color-primary);
+
+    display: flex;
+    justify-content: space-around;
+
+    background-color: var(--color-bg-primary);
+}
+
+.link{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 10%;
+    gap: 1vw;
+
+    transition: all 200ms ease;
+}
+
+.link img{
+    width: 20%;
+    height: 50%;
+
+    filter: invert(72%) sepia(34%) saturate(612%) hue-rotate(357deg) brightness(92%) contrast(91%);
+}
+
+.link:hover{
+    background-color: var(--color-bg-elevated);
+}
+
+.selected{
+    border-bottom: 0.2vh solid var(--color-primary);
+}

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/styleQuizRanking.css">
+    <link rel="stylesheet" href="../styles/styleFooter.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <title>Ranking</title>
+</head>
+<body>
+    <main>
+        <div class="grafsContainer">
+            <div class="kpis">
+                <div class="top">
+                    <i class="ph-fill ph-chart-bar"></i>
+                    <div class="title">
+                        <p>Seu desempenho</p>
+                        <p style="color: var(--color-primary);">Acompanhe seu progresso nos quizzes</p>
+                    </div>
+                </div>
+                <div class="bottom">
+                    <div class="kpi">
+                        <div class="icon">
+                            <i class="ph-fill ph-trophy"></i>
+                        </div>
+                        <div class="info">
+                            <p id="totalPoints" class="main"></p>
+                            <p>Pontuação total</p>
+                        </div>
+                    </div>
+                    <div class="kpi">
+                        <div class="icon">
+                            <i class="ph ph-target"></i>
+                        </div>
+                        <div class="info">
+                            <p id="accuracy" class="main"></p>
+                            <p>Total de acertos</p>
+                        </div>
+                    </div>
+                    <div class="kpi">
+                        <div class="icon">
+                            <i class="ph ph-list-checks"></i>
+                        </div>
+                        <div class="info">
+                            <p id="totalQuizzes" class="main"></p>
+                            <p>Quizzes concluídos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="charts">
+                <div class="chartContainer">
+                    <div class="title">
+                        Acertos por dificuldade
+                    </div>
+                    <div class="chart">
+                        <canvas id="dificulty"></canvas>
+                    </div>
+                </div>
+                <div class="chartContainer">
+                    <div class="title">
+                        Desempenho por década
+                    </div>
+                    <div class="chart">
+                        <canvas id="theme"></canvas>
+                    </div>
+                </div>
+                <div class="chartContainer">
+                    <div class="title">
+                        Quizzes por categoria
+                    </div>
+                    <div class="chart">
+                        <canvas id="decade"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ranking">
+            <div class="top">
+                <h1>RANKING - GLOBAL</h1>
+            </div>
+
+            <div class="bottom">
+                <div class="mainUser" id="mainUser">
+                    
+                </div>
+
+                <div class="rest" id="rest">
+                    <!-- Aqui aparecerão os usuarios-->
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="link" onclick="window.location = './index.html'">
+                <img src="../assets/img/home.svg">
+                <p>Início</p>
+            </div>
+            <div class="link" onclick="window.location = './quizzes.html'">
+                <img src="../assets/img/lamp.svg">
+                <p>Quizzes</p>
+            </div>
+            <div class="link selected" onclick="window.location = './ranking.html'">
+                <img src="../assets/img/rank.svg">
+                <p>Ranking</p>
+            </div>
+        </footer>
+    </main>
+</body>
+</html>
+<script>
+    let userId = sessionStorage.getItem("userId")
+    let userRanking = []
+    let globalRanking = []
+
+    let rankingContainer = document.getElementById('rest');
+    let userRankContainer = document.getElementById('mainUser');
+
+    let chartDificulty = document.getElementById("dificulty");
+    let chartTheme = document.getElementById("theme");
+    let chartDecade = document.getElementById("decade");
+
+    let kpis = []
+    let dificultyData = null;
+    let decadeData = null;
+
+    async function getKpisInfo(id) {
+        let totalQuizzes = await fetch(`/usuarios/getQuizzes/${id}`);
+        let totalPoints = await fetch(`/usuarios/getTotalPoints/${id}`);
+        let globalRanking = await fetch(`/usuarios/getGlobalRanking/${id}`);
+
+        if(totalQuizzes.ok && totalPoints.ok){
+            let quizzes =  await totalQuizzes.json();
+            let points = await totalPoints.json();
+            let rankingPercent = await globalRanking.json();
+
+            console.log(quizzes);
+            console.log(points);
+            console.log(rankingPercent);
+
+            if(quizzes.length == 0){
+                kpis[0] = 0;
+            }else{
+                kpis[0] = quizzes[0].totalQuizes;
+            }
+
+            if(points.length == 0){
+                kpis[1] = 0;
+            }else{
+                kpis[1] = points[0].totalPoints;
+            }
+
+            if(rankingPercent.length == 0){
+                kpis[2] = 'Sem ranking';
+            }else{
+                kpis[2] = Math.round(rankingPercent[0].accuracyPercent) + "%";
+            }
+        }
+    }
+
+    function mountKpis(){
+        let totalPoints = document.getElementById('totalPoints');
+        let accuracy = document.getElementById('accuracy');
+        let totalQuizzes = document.getElementById('totalQuizzes');
+
+        totalPoints.innerHTML = kpis[1];
+        accuracy.innerHTML = kpis[2];
+        totalQuizzes.innerHTML = kpis[0];
+    }
+
+    async function getChartsInfo(id){
+        let dificultyRightsRequest = await fetch(`/usuarios/getDificultyRights/${id}`);
+        let decadeRequest = await fetch(`/usuarios/getThemeRights/${id}`);
+
+        if(dificultyRightsRequest.ok && decadeRequest.ok){
+            let dificultyRights = await dificultyRightsRequest.json();
+            let decade = await decadeRequest.json();
+
+            dificultyData = dificultyRights;
+            decadeData = decade;
+        }    
+    }
+
+    function mountCharts(){
+        if(dificultyData == null && decadeData == null){
+            chartDificulty.innerHTML = "Nada por aqui :("
+        }
+
+          new Chart(chartDificulty, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    'Díficil',
+                    'Médio',
+                    'Fácil'
+                ],
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [dificultyData[1].totalRights, dificultyData[2].totalRights, dificultyData[0].totalRights],
+                    backgroundColor: [
+                    '#C94B4B',
+                    '#D4AF37',
+                    '#52C16D'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '75%',
+                 plugins: {
+                    legend: {
+                    position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        new Chart(chartTheme, {
+            type: 'bar',
+            data: {
+            labels: ['1970', '1980', '1990', '2000', '2010'],
+            datasets: [{
+                data: [
+                    decadeData[2].totalRights, 
+                    decadeData[0].totalRights,
+                    decadeData[4].totalRights,
+                    decadeData[1].totalRights,
+                    decadeData[3].totalRights
+                ],
+                borderWidth: 0,
+                backgroundColor: '#E6B45E'
+            }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        new Chart(chartDecade, {
+            type: 'radar',
+            data: {
+                labels: [
+                    'Escolas',
+                    'Bandas',
+                    'Rádios',
+                    'Cantores',
+                    'Instrumentos',
+                ],
+                datasets: [{
+                    label:'',
+                    data: [
+                        decadeData[2].totalRights, 
+                        decadeData[0].totalRights,
+                        decadeData[4].totalRights,
+                        decadeData[1].totalRights,
+                        decadeData[3].totalRights
+                    ],
+                    fill: true,
+                    backgroundColor: '#e6b45e49',
+                    borderColor: '#E6B45E',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    r: {
+                        ticks: {
+                            display: false
+                        }, 
+                        grid: {
+                            display: true,
+                            circular: true,
+                            color: '#e5e5e5'
+                        },
+                        angleLines: {
+                            display: true,
+                            color: '#d9d9d9'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    async function getRanking(){
+        try {
+            let userRequest = await fetch(`/usuarios/getUserRanking/${userId}`)
+            userRanking = await userRequest.json()
+
+            let globalRequest = await fetch("/usuarios/getAllGlobalRanking");
+            globalRanking = await globalRequest.json();
+        } catch (err) {
+            console.log("Erro:" + err)
+        }
+
+    }
+
+    function mountRanking(){
+        userHTML = `
+            <div class="user">
+                <div class="left">
+                    <p id="position">${userRanking[0].rankingPosition}</p>
+                    <p id="username">Eu</p>
+                </div>
+                <div class="points">
+                    <p>${userRanking[0].totalPoints} pts</p>
+                </div>
+            </div>
+        `
+
+        rankingHTML = '';
+
+        globalRanking.forEach(user => {
+            rankingHTML += `
+                <div class="user">
+                    <div class="left">
+                        <p id="position">${user.rankingPosition}</p>
+                        <p id="username">${user.name == sessionStorage.getItem("username") ? "Eu" : user.name}</p>
+                    </div>
+                    <div class="points">
+                        <p>${user.totalPoints} pts</p>
+                    </div>
+                </div>  
+            `
+        })
+
+        rankingContainer.innerHTML = rankingHTML;
+        userRankContainer.innerHTML = userHTML;
+        
+    }
+
+    async function init(){
+        await getRanking();
+        await getKpisInfo(userId);
+        await getChartsInfo(userId);
+        mountCharts()
+        mountKpis()
+        mountRanking();
+    }
+
+    init();
+</script>

@@ -23,20 +23,20 @@
                     <label>E-mail</label>
                     <div class="input">
                         <input type="text" placeholder="seu@email.com" id="inEmail">
-                        <img src="">
+                        <p id="inEmailMsg" style="opacity: 0; color: red;">O email deve conter @ e 2 caracteres aṕos o .</p>
                     </div>
                 </div>
                 <div class="input-container">
                     <label>Senha</label>
                     <div class="input">
                         <input type="password" placeholder="*************" id="inPass">
-                        <img src="">
+                        <p id="inPassMsg" style="opacity: 0; color: red;">Senha deve conter pelo menos, 1 carater especial, 1 letra maiuscúla, 1 número e 8 caracteres</p>
                     </div>
                 </div>
                 <div class="errorMsg" id="errMsg">Usuário não encontrado!</div>
                 <div class="form-btn-container">
                     <button class="form-btn" type="submit">Entrar</button>
-                    <p>Não tem uma conta? <span>Cadastre-se</span></p>
+                    <p>Não tem uma conta? <span onclick="window.location = './register.html'">Cadastre-se</span></p>
                 </div>
             </form>
 
@@ -45,58 +45,77 @@
 </body>
 <script>
 
-    window.addEventListener('input', () => {
-        let email = String(inEmail.value);
-        let pass = String(inPass.value); 
 
-        errMsg.style.opacity = 0;
+    let regPass = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    let regEmail = /^[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+$/;
 
+    function isPassed(reg, value){
+        let regex = reg;
+        return regex.test(value);
+    }
 
-        let regEmail = /^[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+$/;
-        let regSenha = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    function validate(values){
+        let tests = []
 
-        if(!regEmail.test(email)){
-            inEmail.classList.add('wrongInput');
-        }else{
-            inEmail.classList.remove('wrongInput')
+        for(let i = 0; i < values.length; i++){
+            tests.push(isPassed(values[i].reg, values[i].value))
         }
-        if(!regSenha.test(pass)){
-            inPass.classList.add('wrongInput')
+
+        return tests;
+    }
+
+    inEmail.addEventListener('input', () => {
+        if(!isPassed(regEmail, String(inEmail.value))){
+            inEmail.classList.add('wrongInput');
+            inEmailMsg.style.opacity = '100'
         }else{
-            inPass.classList.remove('wrongInput')
+            inEmail.classList.remove('wrongInput');
+            inEmailMsg.style.opacity = '0'
         }
     })
 
-    function isPassed(){
-        let email = String(inEmail.value);
-        let pass = String(inPass.value); 
-
-        let regEmail = /^[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+$/;
-        let regSenha = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-
-        if(regEmail.test(email) && regSenha.test(pass)){
-            return true;
+    inPass.addEventListener('input', () => {
+        if(!isPassed(regPass, String(inPass.value))){
+            inPass.classList.add('wrongInput');
+            inPassMsg.style.opacity = '100'
+        }else{
+            inPass.classList.remove('wrongInput');
+            inPassMsg.style.opacity = '0'
         }
-
-        return false;
-    }
+    })
 
     let frm = document.getElementById('form');
     frm.addEventListener('submit', (e) => {
         let email = String(inEmail.value);
-        let pass = String(inPass.value);    
+        let pass = String(inPass.value);  
         
-        if(isPassed()){
-            login(email, pass);
-        }
+        let values = [
+            {
+                reg:regPass,
+                value: pass
+            },
+            {
+                reg:regEmail,
+                value: email
+            }
+        ]
 
+        let isPassed = validate(values).every((el) => {
+            return el == true;
+        });
+
+        if(isPassed){
+            login(email, pass);
+        }else{
+            console.log(isPassed);
+        }
 
         e.preventDefault()
     })
 
     async function login(email, password){
         try {
-            let response = await fetch('http://localhost:8080/usuarios/autenticar', {
+            let response = await fetch('/usuarios/autenticar', {
                 method:'POST',
                 headers:{
                     "Content-Type": "application/json"

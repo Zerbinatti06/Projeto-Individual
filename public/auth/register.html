@@ -15,35 +15,35 @@
                 <img src="../assets/img/logoInteira.png">
             </div>
             <div class="form-mid">
-                <h1>Bem-vindo de volta!</h1>
-                <p>Faça login para continuar sua jornada</p>
+                <h1>Bem-vindo!</h1>
+                <p>Faça seu cadastro para continuar sua jornada</p>
             </div>
             <form id="form">
                 <div class="input-container">
                     <label>Nome de Usuário</label>
                     <div class="input">
                         <input type="text" placeholder="Seu apelido" id="inUsername">
-                        <img src="">
+                        <p id="inUsernameMsg" style="opacity: 0; color: red;">O username deve conter no mínimo 3 caracteres e no máximo 20</p>
                     </div>
                 </div>
                 <div class="input-container">
                     <label>E-mail</label>
                     <div class="input">
                         <input type="text" placeholder="seu@email.com" id="inEmail">
-                        <img src="">
+                        <p id="inEmailMsg" style="opacity: 0; color: red;">O email deve conter @ e 2 caracteres aṕos o .</p>
                     </div>
                 </div>
                 <div class="input-container">
                     <label>Senha</label>
                     <div class="input">
                         <input type="password" placeholder="*************" id="inPass">
-                        <img src="">
+                        <p id="inPassMsg" style="opacity: 0; color: red;">Senha deve conter pelo menos, 1 carater especial, 1 letra maiuscúla, 1 número e 8 caracteres</p>
                     </div>
                 </div>
-                <div class="errorMsg" id="errMsg">Usuário não encontrado!</div>
+                <div class="errorMsg" id="errMsg">Usuário já existente</div>
                 <div class="form-btn-container">
                     <button class="form-btn" type="submit">Entrar</button>
-                    <p>Não tem uma conta? <span>Cadastre-se</span></p>
+                    <p>Já tem uma conta? <span onclick="window.location = './login.html'">Logar-se</span></p>
                 </div>
             </form>
 
@@ -51,61 +51,82 @@
     </section>
 </body>
 <script>
+    let regEmail = /^[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+$/;
+    let regPass = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    let regUsername = /^[a-zA-Z0-9_]{3,20}$/;
 
-    window.addEventListener('input', () => {
-        let email = String(inEmail.value);
-        let pass = String(inPass.value); 
-        let username = String(inUsername.value)
+    function isPassed(reg, value){
+        let regex = reg;
+        return regex.test(value);
+    }
 
-        errMsg.style.opacity = 0;
+    function validate(values){
+        let tests = []
 
-
-        let regEmail = /^[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+$/;
-        let regSenha = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-        let regUsername = /^[a-zA-Z0-9_]{3,20}$/;
-
-        if(!regEmail.test(email)){
-            inEmail.classList.add('wrongInput');
-        }else{
-            inEmail.classList.remove('wrongInput')
+        for(let i = 0; i < values.length; i++){
+            tests.push(isPassed(values[i].reg, values[i].value))
         }
 
-        if(!regSenha.test(pass)){
-            inPass.classList.add('wrongInput')
-        }else{
-            inPass.classList.remove('wrongInput')
-        }
+        return tests;
+    }
 
-        if(!regUsername.test(username)){
-            inUsername.classList.add('wrongInput')
+    inUsername.addEventListener('input', () => {
+        if(!isPassed(regUsername, String(inUsername.value))){
+            inUsername.classList.add('wrongInput');
+            inUsernameMsg.style.opacity = '100'
         }else{
-            inUsername.classList.remove('wrongInput')
+            inUsername.classList.remove('wrongInput');
+            inUsernameMsg.style.opacity = '0'
         }
     })
 
-    function isPassed(){
-        let email = String(inEmail.value);
-        let pass = String(inPass.value); 
-        let username = String(inUsername.value);
-
-        let regEmail = /^[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+$/;
-        let regSenha = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-        let regUsername = /^[a-zA-Z0-9_]{3,20}$/;
-
-        if(regEmail.test(email) && regSenha.test(pass) && regUsername.test(username)){
-            return true;
+    inEmail.addEventListener('input', () => {
+        if(!isPassed(regEmail, String(inEmail.value))){
+            inEmail.classList.add('wrongInput');
+            inEmailMsg.style.opacity = '100'
+        }else{
+            inEmail.classList.remove('wrongInput');
+            inEmailMsg.style.opacity = '0'
         }
+    })
 
-        return false;
-    }
+    inPass.addEventListener('input', () => {
+        if(!isPassed(regPass, String(inPass.value))){
+            inPass.classList.add('wrongInput');
+            inPassMsg.style.opacity = '100'
+        }else{
+            inPass.classList.remove('wrongInput');
+            inPassMsg.style.opacity = '0'
+        }
+    })
 
+    
     let frm = document.getElementById('form');
     frm.addEventListener('submit', (e) => {
         let email = String(inEmail.value);
         let pass = String(inPass.value);    
         let username = String(inUsername.value);
+
+        let values = [
+            {
+                reg:regPass,
+                value: pass
+            },
+            {
+                reg:regEmail,
+                value: email
+            },
+            {
+                reg:regUsername,
+                value: username
+            }
+        ]
+
+        let isPassed = validate(values).every((el) => {
+            return el == true;
+        });
         
-        if(isPassed()){
+        if(isPassed){
             register(email, pass, username);
         }
 
@@ -114,7 +135,7 @@
 
     async function register(email, password, username){
         try {
-            let response = await fetch('http://localhost:8080/usuarios/cadastrar', {
+            let response = await fetch('/usuarios/cadastrar', {
                 method:'POST',
                 headers:{
                     "Content-Type": "application/json"

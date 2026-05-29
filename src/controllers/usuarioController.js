@@ -1,3 +1,4 @@
+const { response } = require("express");
 var usuarioModel = require("../models/usuarioModel");
 
 function autenticar(req, res) {
@@ -82,7 +83,109 @@ function cadastrar(req, res) {
 
 }
 
+function getQuizzes(req, res){
+    var id = req.params.id;
+
+    if(id == undefined){
+        res.send.status(400).message("Seu id está undefined");
+    }
+
+    usuarioModel.getQuizzes(id)
+        .then(response => {
+            res.json(response);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err.sqlMessage);
+        })
+}
+
+function getTotalPoints(req, res){
+    let id = req.params.id;
+
+    usuarioModel.getTotalPoints(id)
+        .then(response => {
+            res.status(200)
+            res.send(response);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err.sqlMessage);
+        })
+}
+
+function getGlobalRanking(req, res){
+    let id = req.params.id;
+
+    usuarioModel.getGlobalRanking(id)
+        .then(response => {
+            res.status(200);
+            res.send(response);
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json(err.sqlMessage)
+        })
+}
+
+function getAllGLobalRanking(req, res){
+    usuarioModel.getAllGLobalRanking()
+        .then(response => {
+            res.status(200);
+            res.send(response);
+        })
+        .catch(err => {
+            res.status(500).send("Erro ao pegar ranking global")
+        })
+}
+
+function getUserRanking(req, res){
+    let userId = req.params.id;
+
+    usuarioModel.getUserRanking(userId)
+        .then(response => {
+            res.status(200);
+            res.send(response);
+        })
+        .catch(err => {
+            res.status(500).send("Erro ao buscar ranking de usuario")
+        })
+}   
+
+function getDificultyRights(req, res){
+    let userId = req.params.id;
+
+    usuarioModel.getDificultyRights(userId)
+        .then(response => {
+            res.status(200);
+            res.send(response);
+        })
+        .catch(err => {
+            res.status(500).send("Erro ao pegar acertos por dificuldade")
+        })
+}
+
+function getThemeRights(req, res){
+    let userId = req.params.id;
+
+    usuarioModel.getThemeRights(userId)
+        .then(response => {
+            res.status(200);
+            res.send(response)
+        })
+        .catch(err => {
+            res.status(500).send("Erro ao pegar desempenho por tema")
+        })
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    getQuizzes,
+    getTotalPoints,
+    getGlobalRanking,
+    getAllGLobalRanking,
+    getUserRanking,
+    getDificultyRights,
+    getThemeRights
 }

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/fonts.css">
+    <link rel="stylesheet" href="../styles/styleFooter.css">
+    <link rel="stylesheet" href="../styles/styleQuizQuizzes.css">
+    <title>Quizzes</title>
+</head>
+<body>
+    <main>
+        <aside id="decadeContainer">
+            <!-- Aqui aparecerão as décadas -->
+        </aside>
+       
+        <div class="content" id="content">
+            <!-- Aqui aparecerão os quizzes -->
+        </div>
+
+        <footer>    
+            <div class="link" onclick="window.location = './index.html'">
+                <img src="../assets/img/home.svg">
+                <p>Início</p>
+            </div>
+            <div class="link selected" onclick="window.location = './quizzes.html'">
+                <img src="../assets/img/lamp.svg">
+                <p>Quizzes</p>
+            </div>
+            <div class="link" onclick="window.location = './ranking.html'">
+                <img src="../assets/img/rank.svg">
+                <p>Ranking</p>
+            </div>
+        </footer>
+    </main>
+</body>
+<script>
+    let decades = [
+        {
+            "id": "dec1970",
+            "title": "1970",
+            "mainDescription": "O Nascimento de um movimento",
+            "theme":"escolas",
+            "page":{
+                "description": "Uma década de consolidação do samba moderno, marcada pela força das raízes populares, pela tradição das rodas de samba e pela ascensão dos grandes mestres do gênero."
+            }
+        },
+        {
+            "id": "dec1980",
+            "title": "1980",
+            "mainDescription": "A consolidação da escolas",
+            "theme":"bandas",
+            "page":{
+                "description": "Uma década de fortalecimento das escolas de samba, surgimento de novos talentos e expansão do samba no Brasil."
+            }
+        },
+        {
+            "id": "dec1990",
+            "title": "1990",
+            "mainDescription": "A era dos festivais",
+            "theme":"rádios",
+            "page":{
+                "description": "Uma década de renovação sonora, popularização do pagode e surgimento de novos artistas que aproximaram o samba de uma nova geração."
+            }
+        },
+        {
+            "id": "dec2000",
+            "title": "2000",
+            "mainDescription": "O samba e os novos tempos",
+            "theme":"cantores",
+            "page":{
+                "description": "Uma década de reinvenção do samba, com novas influências musicais, grande presença midiática e valorização das tradições do gênero."
+            }
+        },
+        {
+            "id": "dec2010",
+            "title": "2010",
+            "mainDescription": "A nova geração e o futuro",
+            "theme":"instrumentos",
+            "page":{
+                "description": "Uma década de conexão entre tradição e contemporaneidade, marcada pelo resgate das raízes do samba e pela chegada de novos públicos ao gênero."
+            }
+        }
+    ]
+
+    let quizzes = []
+
+    function loadPage(){
+        mountDecades();
+        if(sessionStorage.getItem('theme') == null){
+            sessionStorage.setItem('theme', 'escolas');
+        }
+        mountDecadesContent(sessionStorage.getItem('theme'));
+    }
+
+    function mountDecades(){
+        let decadesContainer = document.getElementById('decadeContainer');
+
+        decades.forEach(decade => {
+        let html = '';
+        
+        html = `
+            <div class="decade" onclick="mountDecadesContent('${decade.theme}')">
+                <h1>${decade.title}</h1>
+                <p>${decade.mainDescription}</p>
+            </div>
+        `
+
+        decadesContainer.innerHTML += html;
+        })
+    }
+
+    function mountDecadesContent(theme){
+        let content = document.getElementById("content");
+        let decade = getDecadeByTheme(theme);
+
+        let html = `
+            <div class="top">
+                    <div class="title">${decade.title} - ${decade.mainDescription}</div>
+                    <div class="subtitle">${decade.page.description}</div>
+            </div>
+            <div class="bottom">
+                <div class="title">Quizzes Disponíveis</div>
+                <div class="quizzes" id="quizzesContainer">
+                </div>
+            </div>
+        `
+
+        content.innerHTML = html;
+        getQuizzes(theme);
+        
+        setTimeout(() => {
+            loadQuizzesbyTheme(theme);
+        }, 200)
+    }
+
+    function loadQuizzesbyTheme(theme){
+        let quizzesContainer = document.getElementById("quizzesContainer");
+        let decade = getDecadeByTheme(theme);
+
+        let dificulty = ''
+        let html = '';
+
+        quizzes.forEach(quiz => {
+            if(quiz.points == 1000){
+                dificulty = "easy";
+            }else if(quiz.points == 1250){
+                dificulty = "medium";
+            }else{
+                dificulty = "hard";
+            }
+
+            html += `
+                <div class="quiz">
+                    <div class="right">
+                        <div class="img">
+                            <img src="../assets/img/${decade.theme}.png">
+                        </div>
+                        <div class="info">
+                            <div class="title">${quiz.title}</div>
+                            <div class="desc">
+                                <div class="amount">${quiz.questionsCount} perguntas</div>
+                                <div class="${dificulty}">${dificulty}</div>
+                                <div class="points">${quiz.points} pts</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="left">
+                        <div class="btn" onclick="startQuiz(${quiz.id})">Iniciar</div>
+                    </div>
+                </div>
+                `;
+                
+            })
+
+            quizzesContainer.innerHTML = html;
+    }
+
+    function startQuiz(id){
+        sessionStorage.setItem("quizId", id);
+
+        window.location = './quiz.html'
+    }
+
+    function getDecadeByTheme(theme){
+        let decade = {}
+
+        decades.forEach(dec => {
+            if(dec.theme == theme) decade = dec;
+        })
+
+        return decade;
+    }
+
+    async function getQuizzes(theme){
+        let response = await fetch(`/quiz/getQuizbyTheme/`, {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                theme:theme
+            })
+        });
+        
+        if(response.ok){
+            let data = await response.json();
+            quizzes = data;
+        };
+
+    }   
+
+    loadPage();
+</script>
+</html>

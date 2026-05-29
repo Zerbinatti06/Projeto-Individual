@@ -14,6 +14,8 @@ var HOST_APP = process.env.APP_HOST;
 var app = express();
 
 var usuarioRouter = require("./src/routes/usuarios");
+var quizRouter = require("./src/routes/quiz");
+var playRouter = require("./src/routes/play")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -22,25 +24,20 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
 app.use("/usuarios", usuarioRouter);
+app.use("/quiz", quizRouter);
+app.use("/play", playRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`
   /$$      /$$ /$$$$$$$$ /$$$$$$$                      /$$$$$$$   /$$$$$$  /$$$$$$$$ /$$$$$$                      /$$    /$$ /$$$$$$ /$$$$$$$$
-| $$  /$ | $$| $$_____/| $$__  $$                     | $$__  $$ /$$__  $$|__  $$__//$$__  $$                   | $$   | $$|_  $$_/|_____ $$ 
+| $$  /$ | $$| $$_____/| $$__  $$                    | $$__  $$ /$$__  $$|__  $$__//$$__  $$                    | $$   | $$|_  $$_/|_____ $$ 
 | $$ /$$$| $$| $$      | $$  \ $$                    | $$  \ $$| $$  \ $$   | $$  | $$  \ $$                    | $$   | $$  | $$       /$$/ 
 | $$/$$ $$ $$| $$$$$   | $$$$$$$        /$$$$$$      | $$  | $$| $$$$$$$$   | $$  | $$$$$$$$       /$$$$$$      |  $$ / $$/  | $$      /$$/  
 | $$$$_  $$$$| $$__/   | $$__  $$      |______/      | $$  | $$| $$__  $$   | $$  | $$__  $$      |______/       \  $$ $$/   | $$     /$$/   
-| $$$/ \  $$$|  $$      | $$  \ $$                     | $$  | $$| $$  | $$   | $$  | $$  | $$                    \  $$$/    | $$    /$$/    
+| $$$/ \  $$$|  $$     | $$  \ $$                    | $$  | $$| $$  | $$   | $$  | $$  | $$                      \  $$$/    | $$    /$$/    
 | $$/   \  $$| $$$$$$$$| $$$$$$$/                    | $$$$$$$/| $$  | $$   | $$  | $$  | $$                       \  $/    /$$$$$$ /$$$$$$$$
 |__/     \__/|________/|_______/                     |_______/ |__/  |__/   |__/  |__/  |__/                        \_/    |______/|________/
                                                                                                                                              
                                                                                                                                              
-                                                                                                                                             
-                                                                                                                                       
-                                                                                                                                       
-                                                                                                                                       
-                                    
-    
-    \n\n\n                                                                                                 
-    Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar .: http://${HOST_APP}:${PORTA_APP} :. \n\n`);
+Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://${HOST_APP}:${PORTA_APP} `);
 });

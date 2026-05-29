@@ -73,12 +73,12 @@ section{
 
 .form-top{
     position: absolute;
-    top: 20%;
+    top: 15%;
     left: 50%;
     transform: translate(-50%, -50%);
 
-    width: 100%;
-    height: 50%;
+    width: 35%;
+    height: 25%;
 
     display: flex;
     align-items: center;
@@ -118,14 +118,12 @@ section{
 
 form{
     position: relative;
-    top: 55%;
+    top: 65%;
     left: 50%;
     transform: translate(-50%, -50%);
 
     width: 100%;
     height: fit-content;
-
-    margin-top: 5vh;
 
     display: flex;
     flex-direction: column;
@@ -181,7 +179,7 @@ input:focus{
 
 .form-btn-container{
     position: absolute;
-    top: 130%;
+    top: 110%;
     left: 50%;
     transform: translate(-50%, -50%);
 
@@ -193,6 +191,13 @@ input:focus{
     justify-content: center;
 
     gap: 2vh;
+}
+
+.form-btn-container span{
+    color: var(--color-primary);
+    text-decoration: underline;
+
+    cursor: pointer;
 }
 
 .form-btn{

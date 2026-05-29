@@ -1,25 +1,51 @@
 var database = require("../database/config")
 
-function create(userId, title){
-    console.log("Executando inserção do quiz", title, "no userId", userId);
+function getQuizbyTheme(theme){
 
     var instrucaoSql = `
-        INSERT INTO quiz (userId, title) values (${userId}, ${title});
+        SELECT * FROM vwQuizzes WHERE theme = "${theme}";
     `
-    database.executar(instrucaoSql);
+    return database.executar(instrucaoSql);
 }
 
 function getAll(){
     console.log("Executando SELECT na tabela quiz")
 
     var instrucaoSql = `
-        SELECT * FROM quiz;
+        SELECT * FROM vwQuizzes;
     `
 
-    database.executar(instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function getQuiz(id){
+    var instrucaoSql = `
+        select * from vwQuizzes where id = ${id};
+    `
+
+    return database.executar(instrucaoSql);
+}
+
+function getQuestions(id){
+    var instrucaoSql = `
+        select * from vwQuestionQuiz where quizId = ${id};
+    `
+
+    return database.executar(instrucaoSql);
+}
+
+function getAnswers(id){
+    var instrucaoSql = `
+        select * FROM vwAnswersQuestionQuiz WHERE quizId = ${id};
+    `
+
+    return database.executar(instrucaoSql);
 }
 
 module.exports = {
-    create,
-    getAll
+    getQuizbyTheme,
+    getAll,
+    getQuiz,
+    getQuestions,
+    getAnswers,
 }
